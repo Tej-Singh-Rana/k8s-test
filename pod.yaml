@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+       name: pod-1
+       labels:
+            run: kub-pod
+spec:
+    containers:
+            - name: busy-box
+              image: busybox
+              args:
+                 - sh
+                 - sleep
+                 - "2600"
+
