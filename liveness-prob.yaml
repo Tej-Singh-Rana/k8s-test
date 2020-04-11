@@ -1,0 +1,25 @@
+# liveness-command method
+apiVersion: v1
+kind: Pod
+metadata:
+     name: liveness-exec
+     labels:
+        demo: liveness
+spec:
+   containers:
+       - name: liveness
+         image: busybox
+# When running the command line argument to the container, we will first create the /tmp/healthy file, and then we will remove it after 30 seconds. 
+# The deletion of the file would trigger a health failure, and our Pod would get restarted.
+         args:
+           - /bin/sh
+           - -c
+           - touch /tmp/healthy; sleep 30; rm -rf /tmp/healthy; sleep 600
+          livenessProbe:
+               exec:
+                  command:
+                     - cat
+                     - /tmp/healthy
+               initialDelaySeconds: 5 # The initialDelaySeconds parameter requests the kubelet to wait for 5 seconds before the first probe.
+               periodSeconds: 5  # The existence of the /tmp/healthy file is configured to be checked every 5 seconds using the periodSeconds parameter.
+               
