@@ -1,0 +1,42 @@
+$ history
+    1  minikube version
+    2  minikube start
+    3  kubectl config view
+    4  kubectl create namespace lfs158
+    5  kubectl get ns
+    6  mkdir rbac
+    7  cd rbac/
+    8  openssl genrsa -out student.key 2048
+    9  openssl req -new -key student.key -out student.csr -subj "/CN=student/O=learner"
+   10  pwd
+   11  openssl req -new -key student.key -out student.csr -subj "/CN=student/O=learner"
+   12  sudo openssl req -new -key student.key -out student.csr -subj "/CN=student/O=learner"
+   13  vim signing-request.yaml
+   14  cat student.csr | base64 | tr -d '\n'
+   15  vim signing-request.yaml
+   16  kubectl create -f signing-request.yaml
+   17  vim signing-request.yaml
+   18  kubectl create -f signing-request.yaml
+   19  kubectl get csr
+   20  kubectl certificate approve student-csr
+   21  kubectl get csr
+   22  kubectl get csr student-csr -o jsonpath='{.status.certificate}' | base64 --decode > student.crt
+   23  cat student.crt
+   24  kubectl config set-credentials student --client-certificate=student.crt --client-key=student.key
+   25  kubectl config view
+   26  kubectl config set-context student-context --cluster=minikube --namespace=lfs158 --user=student
+   27  kubectl config get contexts
+   28  kubectl config get-contexts
+   29  kubectl config view
+   30  kubectl -n lfs158 create deployment nginx --image=nginx:alpine
+   31  kubectl get deployments
+   32  kubectl get deployments -n lfs158
+   33  kubectl --context=student-context get pods
+   34  vim role.yaml
+   35  kubectl create -f role.yaml
+   36  kubectl -n lfs158 get role
+   37  vim rolebinding.yml
+   38  kubectl create -f rolebinding.yml
+   39  kubectl -n lfs158 get rolebinding
+   40  kubectl get pods -n lfs158
+   41  kubectl --context=student-context get pods
