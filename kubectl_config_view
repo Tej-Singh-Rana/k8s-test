@@ -1,0 +1,22 @@
+# $ kubectl config view
+# kubectl client's configuration file, observing the only context minikube and the only user minikube, created by default:
+
+apiVersion: v1
+clusters:
+- cluster:
+    certificate-authority: /home/student/.minikube/ca.crt
+    server: https://172.17.0.55:8443
+  name: minikube
+contexts:
+- context:
+    cluster: minikube
+    user: minikube
+  name: minikube
+current-context: minikube
+kind: Config
+preferences: {}
+users:
+- name: minikube
+  user:
+    client-certificate: /home/student/.minikube/client.crt
+    client-key: /home/student/.minikube/client.key
