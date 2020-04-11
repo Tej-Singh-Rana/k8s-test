@@ -1,0 +1,14 @@
+# after created role, to give permission to user student in namespace of student and grant permission to name pod-reader of role.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: pod-read-access
+  namespace: student
+subjects:
+- kind: User
+  name: student
+  apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: Role
+  name: pod-reader
+  apiGroup: rbac.authorization.k8s.io
