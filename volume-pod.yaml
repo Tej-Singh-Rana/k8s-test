@@ -1,0 +1,21 @@
+# after deletion pod, cannot effect in service,endpoints.We will just loose endpoints.
+# If we create a new one with same labels, it will be starts from that timing.
+apiVersion: v1
+kind: Pod
+metadata:
+      name: volume-pod
+      labels:
+         run: volume-pod
+spec:
+    volumes:
+      - name: volume-one
+        hostPath:
+            path: /home/john/pod-volume
+    containers:
+      - image: nginx
+        name: nginx
+        ports:
+          - containerPort: 80
+        volumeMounts:
+            - mountPath: /usr/share/nginx/html
+              name: volume-one
