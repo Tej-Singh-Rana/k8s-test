@@ -1,0 +1,34 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+      name: web-config
+      namespace: default
+data:
+   STRING: Welcome to my nginx page!!
+   PATH: /usr/share/nginx/html/index.html
+---
+apiVersion: v1
+kind: Pod
+metadata:
+    name: web-setup
+spec:
+   containers:
+       - name: nginx
+         image: nginx
+         command: [ "/bin/sh", "-c", "echo $(DATA_ONE) > $(DATA_PATH) ; sleep 3600" ]  # DATA_ONE->web-config->STRING > DATA_PATH->web-config->PATH
+         env:
+           - name: DATA_ONE
+             valueFrom:
+                  configMapKeyRef:
+                          name: web-config
+                          key: STRING
+                          optional: true
+           - name: DATA_PATH
+             valueFrom:
+                 configMapKeyRef:
+                       name: web-config
+                       key: PATH
+                       optional: true
+   restartPolicy: never
+   
+   # kubectl exec web-setup -- /bin/sh -c 'cat /usr/share/nginx/html/index.html'

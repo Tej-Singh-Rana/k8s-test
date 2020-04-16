@@ -1,0 +1,15 @@
+# we can use direct CLI method as well to create a service but this method requires an existing deployment.
+# kubectl expose deployment webserver --name=web-service --type=NodePort
+apiVersion: v1
+kind: Service
+metadata:
+      name: web-service
+      labels:
+         run: web-service
+spec:
+    type: NodePort
+    ports:
+      - port: 80
+        protocol: TCP
+    selector:
+       app: nginx
