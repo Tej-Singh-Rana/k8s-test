@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+      name: depth
+      labels:
+           pro: code
+spec:
+    replicas: 3
+    selector:
+         matchLabels:
+                pro: code
+    template:
+       metadata:
+           name: depth
+           labels:
+                pro: code
+       spec:
+           containers:
+              - name: procode
+                image: busybox
+
+
