@@ -1,0 +1,34 @@
+apiVersion: v1
+kind: Service
+metadata:
+       name: webapp-svc
+       labels:
+            app: webapp
+spec:
+      ports:
+        - port: 80
+      externalIPs:
+          - 172.17.0.14
+      selector:
+            app: webapp-main
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+      name: webapp-main
+      labels:
+           app: webapp-main
+spec:
+    replicas: 3
+    template:
+          metadata:
+               name: webapp
+               labels:
+                   app: webapp-main
+          spec:
+              containers:
+                    - name: webapp-main
+                      image: centos
+                      ports:
+                         - containerPort: 80
