@@ -1,0 +1,21 @@
+# kubectl logs -f pod-log pod-one
+# kubectl logs -f pod-log pod-two
+
+kind: Pod
+metadata:
+    name: pod-log
+
+spec:
+   containers:
+   - image: busybox
+     name: pod-one
+     command:
+     - sleep
+     - "10000"
+   - image: alpine
+     name: pod-two
+     args:
+     - localhost
+     command:
+     - ping
+
