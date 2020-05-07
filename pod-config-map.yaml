@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: config-pod
+  labels:
+    run: configmap
+spec:
+  containers:
+    - image: nginx
+      name: config-pod
+      ports:
+        - containerPort: 80
+      envFrom:
+        - configMapRef:                     # complete env details
+            name: app-config
+  #     env:
+  #       - name: host-name
+  #         valueFrom:                      # single env
+  #           configMapKeyRef:
+  #             name: app-config
+  #             key: HOST_NAME
+
+  # volumes:
+  #   - name: app-config-volume
+  #     configMap:                      # volume
+  #       name: app-config

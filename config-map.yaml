@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app-config
+
+data:                     # key: value pairs 
+  HOST_NAME: "worker-node"    # stores data in plain text format not good for sensitive information.
+  HOST_ID: 215
