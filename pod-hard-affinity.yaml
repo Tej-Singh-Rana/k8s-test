@@ -1,0 +1,22 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: alpha
+  labels:
+    run: app
+spec:
+  containers:
+    - name: nginx
+      image: nginx
+      ports:
+        - containerPort: 80
+  affinity:
+    podAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+      - labelSelector:
+          matchExpressions:
+            - key: goal                         # Pod affinity, It will not assign anyone of the cluster node. No match of labels.
+              operator: In
+              values:
+              - fast
+        topologyKey: kubernetes.io/os 

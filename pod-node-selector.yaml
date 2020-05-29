@@ -1,0 +1,21 @@
+kind: v1
+apiVersion: Pod
+metadata:
+  name: cuba
+  labels:
+    run: cluster
+    count: one        
+spec:
+  containers:
+    - image: nginx
+      name: cluster
+      ports:
+        - containerPort: 80
+          protocol: TCP
+          name: nginxport
+  nodeSelector:     # It will match the label of the node in the k8s cluster.
+      count: one      # same label assign to a specific node to schedule on it.
+
+# kubectl label nodes node01 count=one       # Adding a new label count=one to node01.
+# kubectl get nodes -l count=one             # filtering by labels.
+# kubectl label nodes node01 --list=true     # It will display all of the labels to assign node01.
