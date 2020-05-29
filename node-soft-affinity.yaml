@@ -1,0 +1,24 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: softpod
+  labels:
+    run: app
+spec:
+  containers:
+    - image: busybox
+      name: soft-affinity
+      commands:
+        - "/bin/sh"
+        - "-c"
+        - "sleep 36000"
+  affinity:
+    nodeAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution:
+        - weight: 1
+          preference:
+            matchExpressions:
+              - key: run                      # assigned this label to any specific node "run=app", then it will check. 
+                operator: In                  # if not match, then it will be schedule the pod anyone of the cluster.
+                values:
+                - app
