@@ -10,16 +10,11 @@ spec:
     spec:
       template:
         spec:
-          metadata:
-            name: cron-pod
-            labels:
-              run: app
-          spec:
             containers:
             - image: busybox
               name: cronbox
               command:
-                - sch
+                - sh
                 - -c
                 - echo "Hello world" > /opt/test.txt
             restartPolicy: OnFailure
