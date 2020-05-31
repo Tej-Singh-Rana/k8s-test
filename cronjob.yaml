@@ -1,0 +1,25 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: cron-1
+  labels:
+    run: cross
+spec:
+  schedule: "*/1 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          metadata:
+            name: cron-pod
+            labels:
+              run: app
+          spec:
+            containers:
+            - image: busybox
+              name: cronbox
+              command:
+                - sch
+                - -c
+                - echo "Hello world" > /opt/test.txt
+            restartPolicy: OnFailure
