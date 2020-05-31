@@ -5,4 +5,4 @@ metadata:
 
 data:                     # key: value pairs 
   HOST_NAME: "worker-node"    # stores data in plain text format not good for sensitive information.
-  HOST_ID: 215
+  HOST_ID: "215"
