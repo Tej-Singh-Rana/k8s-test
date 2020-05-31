@@ -29,6 +29,6 @@ spec:
                        name: web-config
                        key: PATH
                        optional: true
-   restartPolicy: never
+   restartPolicy: Never
    
    # kubectl exec web-setup -- /bin/sh -c 'cat /usr/share/nginx/html/index.html'
