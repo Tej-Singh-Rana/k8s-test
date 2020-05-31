@@ -1,0 +1,16 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: new-job
+spec:
+  completion: 8
+  parallelism: 2                    # Job will run 2 pods in parallel until it reaches to 8 completions successfully.
+  template:
+    spec:
+      containers:
+        - name: new-job
+          image: bash
+          command: ["/bin/sh","-c"]
+          args:
+            - for i in `seq 10`; do echo $i; done
+      restartPolicy: OnFailure
