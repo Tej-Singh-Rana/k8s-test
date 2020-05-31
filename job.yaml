@@ -1,0 +1,14 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: new-job
+spec:
+  template:
+    spec:
+      containers:
+        - name: new-job
+          image: bash
+          command: ["/bin/sh","-c"]
+          args:
+            - for i in `seq 10`; do echo $i; done
+      restartPolicy: OnFailure
