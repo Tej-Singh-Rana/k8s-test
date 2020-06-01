@@ -1,6 +1,21 @@
-apiVersion:
-kind:
+apiVersion: v1
+kind: Pod
 metadata:
-
-
-spec;
+   name: ready
+   labels:
+    run: ready
+spec:
+  containers:
+    - image: busybox
+      name: live
+      args:
+        - /bin/sh
+        - -c
+        - sleep 20; touch file; sleep 360
+      readinessProbe:
+        exec:
+          command:
+            - cat
+            - file
+          initialDelaySeconds: 15
+          periodSeconds: 3
