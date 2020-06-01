@@ -1,5 +1,21 @@
-apiVersion:
+apiVersion: v1
 metadata:
-kind:
-
+  name: live
+  labels:
+    app: live
+kind: Pod
 spec:
+  containers:
+    - image: busybox
+      name: live
+      args:
+        - /bin/sh
+        - -c
+        - touch file; sleep 20; rm -rf file; sleep 360
+      livenessProbe:
+        exec:
+          command:
+            - cat
+            - file
+          initialDelaySeconds: 10
+          periodSeconds: 3
