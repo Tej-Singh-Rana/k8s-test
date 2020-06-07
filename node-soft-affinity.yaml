@@ -8,7 +8,7 @@ spec:
   containers:
     - image: busybox
       name: soft-affinity
-      commands:
+      command:
         - "/bin/sh"
         - "-c"
         - "sleep 36000"
