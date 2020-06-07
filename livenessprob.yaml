@@ -17,5 +17,5 @@ spec:
           command:
             - cat
             - file
-          initialDelaySeconds: 10
-          periodSeconds: 3
+        initialDelaySeconds: 10
+        periodSeconds: 3
