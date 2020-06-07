@@ -1,0 +1,48 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: init-svc
+spec:
+  type: NodePort
+  ports:
+    - protocol: TCP
+      targetPort: 80
+      nodePort: 32500
+      port: 80
+  selector:
+    run: web
+---
+kind: Pod
+metadata:
+  name: pod1
+  labels:
+    run: web
+apiVersion: v1
+spec:
+  volumes:
+    - name: po
+      emptyDir: {}
+  restartPolicy: OnFailure
+  terminationGracePeriodSeconds: 15
+  containers:
+    - name: nginx
+      image: nginx
+      ports:
+        - containerPort: 80
+      volumeMounts:
+        - name: po
+          mountPath: /usr/share/nginx/html/
+  initContainers:
+    - name: ubuntu
+      image: ubuntu
+      command:
+        - sh
+        - -c
+      args:
+        - apt-get update;
+          apt-get install git -y;
+          git clone https://github.com/Tej-Singh-Rana/Web-Test.git;
+          cp Web-Test/* /tmp/ ;
+      volumeMounts:
+        - name: po
+          mountPath: /tmp/
