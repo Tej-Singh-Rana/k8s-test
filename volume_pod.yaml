@@ -5,21 +5,21 @@ metadata:
       labels:
            app: pod1
 spec:
-     containers:
-            - name: webapp
-              image: ubuntu
-              volumeMounts:
-                    - mountPath: /tmp/local/file/
-                      name: mydir
-                    - mountPath: /tmp/local/file/secret.txt
-                      name: myfile
-              volumes:
-                   - name: mydir
-                     hostPath:
-                        # FileOrCreate mode does not create the parent directory of the file, so try separately this way
-                          path: /tmp/local/file/
-                          type: DirectoryOrCreate
-                    - name: myfile
-                      hostPath:
-                           path: /tmp/local/file/secret.txt
-                           type: FileOrCreate
+    containers:
+      - name: webapp
+        image: ubuntu
+        volumeMounts:
+          - mountPath: /tmp/local/file/
+            name: mydir
+          - mountPath: /tmp/local/file/secret.txt
+            name: myfile
+    volumes:
+    - name: mydir
+      hostPath:
+    # FileOrCreate mode does not create the parent directory of the file, so try separately this way
+        path: /tmp/local/file/
+        type: DirectoryOrCreate
+    - name: myfile
+      hostPath:
+        path: /tmp/local/file/secret.txt
+        type: FileOrCreate
