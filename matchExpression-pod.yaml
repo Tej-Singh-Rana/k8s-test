@@ -10,8 +10,8 @@ spec:
     matchLabels:
       ver: v1
     matchExpressions:
-        - {key: kernel, operator: In, values: latest}
-        - {key: env, operator: In, values: server}
+        - {key: "kernel", operator: In, values: "latest"}
+        - {key: "env", operator: In, values: "server"}
   template:
     metadata:
       name: rush
