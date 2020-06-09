@@ -39,4 +39,4 @@ spec:
           name: http
       volumeMounts:
         - name: git-repo
-          volumeMounts: /usr/share/nginx/html/
+          mountPath: /usr/share/nginx/html/
