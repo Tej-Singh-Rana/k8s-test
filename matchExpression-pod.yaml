@@ -1,0 +1,44 @@
+kind: Deployment
+metadata:
+  name: expert
+  labels:
+    run: app
+apiVersion: apps/v1
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      ver: v1
+    matchExpressions:
+        - {key: kernel, operator: In, value: latest}
+        - {key: env, operator: In, value: server}
+  template:
+    metadata:
+      name: rush
+      labels:
+        ver: v1
+        kernel: latest
+        env: server
+    spec:
+      volumes:
+        - name: vamp
+          emptyDir: {}
+      containers:
+        - image: nginx
+          name: web-app
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - name: vamp
+              mountPath: /usr/share/nginx/html
+      initContainers:
+        - image: busybox
+          name: helper
+          command:
+            - sh
+            - -c
+          args:
+            - echo "This is your web page" > /tmp/index.html
+          volumeMounts:
+            - name: vamp
+              mountPath: /tmp/
