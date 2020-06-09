@@ -5,10 +5,11 @@ metadata:
 spec:
   type: NodePort
   selector:
-    matchLabels:
-      ver: v1
-    matchExpression:
-      - {kind: ver, operator: In, value: ["v2","v3"]}
+    ver: v1
+    # matchLabels:                # This matchLabels implement in Deployment,Daemonset
+    #   ver: v1 
+    # matchExpression:
+    #   - {kind: ver, operator: In, value: ["v2","v3"]}
   ports:
     - port: 80
       targetPort: http
