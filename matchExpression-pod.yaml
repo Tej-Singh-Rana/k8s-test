@@ -10,8 +10,9 @@ spec:
     matchLabels:
       ver: v1
     matchExpressions:
-        - {key: "kernel", operator: In, values: "latest"}
-        - {key: "env", operator: In, values: "server"}
+    #   - {key: "kernel", operator: Exists, values: }    # In case of Exists,DoesNotExist value must be empty. It will fix later on patch.
+        - {key: "kernel", operator: In, values: ["latest","new"]}
+        - {key: "env", operator: In, values: ["server","app"]}
   template:
     metadata:
       name: rush
