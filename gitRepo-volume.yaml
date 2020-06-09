@@ -1,0 +1,41 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: git-svc
+spec:
+  type: NodePort
+  selector:
+    matchLabels:
+      ver: v1
+    matchExpression:
+      - {kind: ver, operator: In, value: ["v2","v3"]}
+  ports:
+    - port: 80
+      targetPort: http
+      protocol: TCP
+      nodePort: 32500
+---
+apiVerion: v1
+kind: Pod
+metadata:
+  name: git-test
+  labels:
+    ver: v1
+    ver: v2
+    ver: v3
+spec:
+  volumes:
+    - name: git-repo
+      gitRepo:
+        repository: https://github.com/Tej-Singh-Rana/Web-Test.git
+        revision:  master
+        directory: .        
+  containers:
+    - image: nginx
+      name: git-test
+      ports:
+        - containerPort: 80
+          name: http
+      volumeMounts:
+        - name: git-repo
+          volumeMounts: /usr/share/nginx/html/
