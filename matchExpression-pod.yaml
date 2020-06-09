@@ -11,6 +11,7 @@ spec:
       ver: v1
     matchExpressions:
     #   - {key: "kernel", operator: Exists, values: }    # In case of Exists,DoesNotExist value must be empty. It will fix later on patch.
+    #   - {key: "kernel", operator: NotIn, values: ["v1","v2"]}     # kernel value is not v1, v2.   
         - {key: "kernel", operator: In, values: ["latest","new"]}
         - {key: "env", operator: In, values: ["server","app"]}
   template:
