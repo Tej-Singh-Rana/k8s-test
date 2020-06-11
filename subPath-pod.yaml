@@ -8,16 +8,17 @@ spec:
   volumes:
     - name: vol1
       configMap:                # ConfigMap volume type
-        - name: data
+          name: data
           items:                 # Items which is defined in configmap.
-            key: data             # configmap  key pair
+          - key: index.html             # configmap  key pair
             path: index.html       # name same as like subPath
   containers:
     - image: nginx
       name: sub-way
+      workingDir: /usr/share/nginx/html         # available when you access container, override if workdir specified in container image
       ports:
         - containerPort: 80
       volumeMounts:
         - name: vol1
-          mountPath: /usr/share/nginx/html
-          subPath: index.html                 # If we will not define subPath it will override html directory files with index.html.
+          mountPath: /usr/share/nginx/html/index.html           
+          subPath: index.html                     # If we will not define subPath it will override html directory files with index.html.
