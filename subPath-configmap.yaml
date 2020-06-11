@@ -1,0 +1,8 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: data
+data:
+  index.html: |
+    <h1> Welcome </h1>
+    <h2> Kubernetes </h2>
