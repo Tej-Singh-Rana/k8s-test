@@ -20,7 +20,7 @@ metadata:
     lab: server
 spec:
   volumes:
-    - name: pvc
+    - name: html
       persistentVolumeClaim:
         claimName: my-claim
   containers:
