@@ -1,0 +1,17 @@
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+	name: pool
+  labels:
+    cap: big
+spec:
+  capacity:
+    storage: 1Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: ""     # empty string helps to choose default storage 
+  nfs:
+    server: 
+    path: /docker
