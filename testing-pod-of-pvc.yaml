@@ -1,0 +1,32 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: nginx-svc
+spec:
+  type: NodePort
+  ports:
+    - port: 80
+      targetPort: 80
+      nodePort: 32500
+      protocol: TCP
+  selector:
+    lab: server
+---
+kind: Pod
+apiVersion: v1
+metadata:
+	name: testing
+  labels:
+    lab: server
+spec:
+  volumes:
+    - name: pvc
+      persistentVolumeClaim:
+        claimName: my-claim
+  containers:
+    - name: test-p1
+      image: nginx
+      volumeMounts:
+        - name: pvc
+          mountPath: /usr/share/nginx/html
+          
