@@ -15,7 +15,7 @@ spec:
 kind: Pod
 apiVersion: v1
 metadata:
-	name: testing
+  name: testing
   labels:
     lab: server
 spec:
@@ -29,4 +29,3 @@ spec:
       volumeMounts:
         - name: pvc
           mountPath: /usr/share/nginx/html
-          
