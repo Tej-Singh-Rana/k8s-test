@@ -1,7 +1,7 @@
 kind: PersistentVolume
 apiVersion: v1
 metadata:
-	name: pool
+  name: pool
   labels:
     cap: big
 spec:
@@ -13,5 +13,5 @@ spec:
   persistentVolumeReclaimPolicy: Retain
   storageClassName: ""     # empty string helps to choose default storage 
   nfs:
-    server: 
+    server:              # Make sure provide appropriate permission in /etc/exportfs -- (rw,no_root_squash) permission issue.
     path: /docker
