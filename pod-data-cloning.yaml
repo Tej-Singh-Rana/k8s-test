@@ -1,0 +1,35 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: nginx-svc
+spec:
+  type: NodePort
+  ports:
+    - port: 80
+      targetPort: 80
+      nodePort: 31000
+  selector:
+    data: clone
+---
+kind: Pod
+apiVersion: v1
+metadata:
+  name: data-cloning
+  labels:
+    data: clone
+spec:
+  workingDir: /usr/share/nginx/html
+  volumes:
+  - name: pool 
+    persistentVolumeClaim:
+      claimName: pvc1
+  terminationGracePeriodSeconds: 60
+  containers:
+    - image: nginx
+      name: data-mining
+      ports:
+        - containerPort: 80
+      volumeMounts:
+        - name: pool
+          mountPath: /usr/share/nginx/html 
+  restartPolicy: OnFailure
