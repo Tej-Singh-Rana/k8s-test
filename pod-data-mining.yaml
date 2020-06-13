@@ -1,4 +1,4 @@
-kind: Service
+kind: Pod
 apiVersion: v1
 metadata:
   name: data-fatal
@@ -19,4 +19,4 @@ spec:
         - "45000"
       volumeMounts:
         - name: vol1
-          mountPath: /tmp/
+          mountPath: /tmp/data-mining
