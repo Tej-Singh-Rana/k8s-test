@@ -6,12 +6,12 @@ metadata:
     run: store
 spec:
   capacity:
-    storage: 5G
+    storage: 8G
   accessModes:
     - ReadWriteOnce
   volumeMode: Filesystem
-  persistentVolumeReclaimPolicy: Deleted
-  storageClassName: ""
+  persistentVolumeReclaimPolicy: Delete
+  storageClassName: standard
   nfs:
     path: /docker
     server:
