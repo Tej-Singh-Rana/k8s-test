@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pv1
+  labels:
+    name: pv1
+spec:
+  capacity:
+    storage: 2G
+  accessModes:          # ReadWrite  --> With this options can expand PV size without delete Pod/Deployment
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Recycle
+  volumeMode: Block
+  nfs:
+    path:
+    server:

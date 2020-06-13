@@ -1,0 +1,15 @@
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: pvc1
+spec:
+  resources:
+    requests:
+      storage: 2G
+  volumeMode: Block    # If we use Block type then kubernetes has to format that device and provide correct Filesystem
+  accessModes:              # Match with PV accessModes
+    - ReadWriteMany
+  storageClassName: "" 
+  selector:
+    matchLabels:
+      name: pv1
