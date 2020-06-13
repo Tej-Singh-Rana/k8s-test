@@ -18,7 +18,6 @@ metadata:
   labels:
     data: clone
 spec:
-  workingDir: /usr/share/nginx/html
   volumes:
   - name: pool 
     persistentVolumeClaim:
@@ -27,6 +26,7 @@ spec:
   containers:
     - image: nginx
       name: data-mining
+      workingDir: /usr/share/nginx/html
       ports:
         - containerPort: 80
       volumeMounts:
