@@ -1,11 +1,11 @@
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: pv1
-  labels:
-    name: pv1
-spec:
-  capacity:
+  name: pv1                      # metadata section: annotations & finalizers both played good role in PV
+  labels:                         # annotations:
+    name: pv1                     #  pv.kubernetes.io/bound-by-controller: "yes"
+spec:                              # finalizers:     # Extend the time of immediate deleted PV
+  capacity:                            #  - kubernetes.io/pv-protection
     storage: 2G
   accessModes:          # ReadWrite  --> With this options can expand PV size without delete Pod/Deployment
     - ReadWriteMany

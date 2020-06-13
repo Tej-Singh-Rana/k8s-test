@@ -1,0 +1,17 @@
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: store1
+  labels:
+    run: store
+spec:
+  capacity:
+    storage: 5G
+  accessModes:
+    - ReadWriteOnce
+  volumeMode: Filesystem
+  persistentVolumeReclaimPolicy: Deleted
+  storageClassName: ""
+  nfs:
+    path: /docker
+    server:
