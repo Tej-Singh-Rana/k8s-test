@@ -20,7 +20,7 @@ metadata:
     lab: server
 spec:
   volumes:
-    - name: html
+    - name: pvc
       persistentVolumeClaim:
         claimName: my-claim
   containers:
@@ -29,4 +29,4 @@ spec:
       volumeMounts:
         - name: pvc
           mountPath: /usr/share/nginx/html
-          subPath: html
+          
