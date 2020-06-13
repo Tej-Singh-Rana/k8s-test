@@ -9,7 +9,7 @@ spec:
   resources:
     requests:
       storage: 1Gi
-  selector:
+  selector:               # To bound the PVC to PV via labels, not a good practice.
     matchLabels:
       cap: big
   storageClassName: ""
