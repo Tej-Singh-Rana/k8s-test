@@ -1,0 +1,14 @@
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: store-pvc
+spec:
+  volumeMode: Filesystem
+  resources:
+    requests:
+      storage: 5G
+  accessModes:
+    - ReadWriteOnce
+  dataSource:
+    name: pvc1
+    kind: PersistentVolumeClaim

@@ -13,3 +13,11 @@ spec:
   selector:
     matchLabels:
       name: pv1
+
+# accessModes, and storageClassName is must match with PV --> PVC
+#  Under metadata section: Both has own value      
+# annotations:
+#     pv.kubernetes.io/bind-completed: "yes"
+#     pv.kubernetes.io/bound-by-controller: "yes"
+# finalizers:     # Same as PV it's extend the immediate deletion  
+#   - kubernetes.io/pvc-protection
