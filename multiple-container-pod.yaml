@@ -35,12 +35,12 @@ spec:
       volumes:
         - name: log
           hostPath:
-            path: /var/log/
-            type: Directory
+            path: /tmp/log
+            type: DirectoryOrCreate
         - name: html
           hostPath:
-            path: /usr/share/nginx/html
-            type: Directory
+            path: /tmp/html
+            type: DirectoryOrCreate
       containers:
           - image: nginx
             name: nginx
@@ -56,7 +56,6 @@ spec:
             name: busy
             volumeMounts:
               - name: log
-                mountPath: /var/log
+                mountPath: /tmp/log
                 subPath: log
-
       restartPolicy: Always
