@@ -1,0 +1,15 @@
+kind: PersistentVolume
+metadata:
+  name: pv-test
+apiVersion: v1
+spec:
+  capacity:
+    storage: 5Gi
+  accessModes:
+    - ReadWriteOnce
+    - ReadWriteMany
+  volumeMode: Filesystem
+  persistentVolumeReclaimPolicy: Retain
+  nfs:
+    path:
+    server:

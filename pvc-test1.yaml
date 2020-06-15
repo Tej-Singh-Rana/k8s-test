@@ -1,0 +1,11 @@
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-test
+apiVersion: v1
+spec:
+  resources:
+    requests:
+      storage: 1Gi
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: ""   # empty string --> I don't want default storage class. I need to bound only with match PV.
