@@ -10,7 +10,7 @@ spec:
     - name: data
       configMap:
         name: data
-        items:
+        items:             # It will take only that key which i selected.
           - key: index.html
             path: index.html
   containers:
@@ -25,4 +25,5 @@ spec:
       volumeMounts:
         - name: data
           mountPath: /usr/share/nginx/html
-      containerPort: 80
+      ports:
+      - containerPort: 80
