@@ -1,0 +1,9 @@
+secretGenerator:
+  - name: db-user
+    files:
+      - username
+      - password
+  - name: web-user
+    literals:
+      - HOSTNAME=tom
+      - SPECIAL_ADDR=localhost
