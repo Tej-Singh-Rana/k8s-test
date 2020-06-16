@@ -10,9 +10,9 @@ spec:
     - name: data
       configMap:
         name: data
-        items:             # It will take only that key which i selected.
-          - key: index.html
-            path: index.html
+        items:                      # It will take only that key which i selected.
+          - key: index.html         # Value stored under this key.
+            path: index.html        # Value should be stored in this file.
   containers:
     - image: nginx
       name: nginx
