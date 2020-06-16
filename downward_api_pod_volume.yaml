@@ -9,28 +9,33 @@ metadata:
     running-pod/v1: fast
     kubernetes-practice/pod: may
 spec:
+  containers:
+    - image: nginx:alpine
+      name: aone
+      volumeMounts:
+        - name: vol
+          mountPath: /tmp/
   volumes:
     - name: vol
       downwardAPI:
-        items:
+        items:                  # Can mount labels and annotations through volumes with downwardAPI.items
         - fieldRef:
             fieldPath: metadata.labels
-          path: LABELS
+          path: "LABELS"
       #   mode: 
         - resourceFieldRef:
             containerName: downward
             resource: limits.memory
-            divisor: 1ki
+      #     divisor: 1ki
+          path: "LIMIT_MEMORY"
         - resourceFieldRef:
             containerName: aone
             resource: requests.cpu
+          path: "REQUEST_CPU"
         - fieldRef:
             fieldPath: metadata.annotations
-          path: ANNOTATIONS
-        - fieldRef:
-            fieldPath: requests.cpu
-          path: CPU
+          path: "ANNOTATIONS"
         - fieldRef:
             fieldPath: metadata.namespace
-          path: NAMESPACE
+          path: "NAMESPACE"
 
