@@ -1,0 +1,36 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-down
+  labels:
+    run: app
+    version: v1
+  annotations:
+    running-pod/v1: fast
+    kubernetes-practice/pod: may
+spec:
+  volumes:
+    - name: vol
+      downwardAPI:
+        items:
+        - fieldRef:
+            fieldPath: metadata.labels
+          path: LABELS
+      #   mode: 
+        - resourceFieldRef:
+            containerName: downward
+            resource: limits.memory
+            divisor: 1ki
+        - resourceFieldRef:
+            containerName: aone
+            resource: requests.cpu
+        - fieldRef:
+            fieldPath: metadata.annotations
+          path: ANNOTATIONS
+        - fieldRef:
+            fieldPath: requests.cpu
+          path: CPU
+        - fieldRef:
+            fieldPath: metadata.namespace
+          path: NAMESPACE
+
