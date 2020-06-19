@@ -1,31 +1,31 @@
----
-kind: persistentVolume
-apiVersion: v1
-metadata:
-  name: solid
-spec:
-  capacity:
-    storage: 2Gi
-  accessModes:
-    - ReadWriteMany
-    - ReadWriteOnce
-  volumeModes: Filesystem
-  persistentVolumeReclaimPolicy: Delete
-  nfs:
-    path:
-    server:
----
-kind: persistentVolumeClaim
-apiVersion: v1
-metadata:
-  name: gotcha
-spec:
-  resources:
-    requests:
-      storage: 1Gi
-  accessModes:
-    - ReadWriteMany
-  volumeModes: Filesystem
+# ---
+# kind: persistentVolume
+# apiVersion: v1
+# metadata:
+#   name: solid
+# spec:
+#   capacity:
+#     storage: 2Gi
+#   accessModes:
+#     - ReadWriteMany
+#     - ReadWriteOnce
+#   volumeMode: Filesystem
+#   persistentVolumeReclaimPolicy: Delete
+#   nfs:
+#     path:
+#     server:
+# ---
+# kind: persistentVolumeClaim
+# apiVersion: v1
+# metadata:
+#   name: gotcha
+# spec:
+#   resources:
+#     requests:
+#       storage: 1Gi
+#   accessModes:
+#     - ReadWriteMany
+#   volumeMode: Filesystem
 ---
 kind: Service
 metadata:
@@ -45,25 +45,44 @@ metadata:
 apiVersion: apps/v1
 spec:
   replicas: 3
-  selector:
-    matchLabels:
-      market: world
+  # selector:
+  #   matchLabels:
+  #     market: world
   serviceName: nginx-svc
   template:
     metadata:
       name: state-pod
       labels:
+        static: webapp
         market: world
     spec:
-      volumes:
-        - name: mono
-          persistentVolumeClaim:
-            claimName: gotcha
+    #   volumes:
+    #     - name: mono
+    #       persistentVolumeClaim:
+    #         claimName: gotcha
       containers:
         - name: nginx
           image: nginx
           volumeMounts:
             - name: mono
               mounPath: /usr/share/nginx/html
+            - name: horo
+              mountPath: /opt/data
       restartPolicy: Always
+  volumeClaimTemplates:
+    - metadata:
+        name: data
+      spec:
+        resources:
+          requests:
+            storage: 50Mi
+          limits:
+            storage: 80Mi
+        accessModes:
+          - ReadWriteOnce
+        volumeMode: Filesystem
+
+
+
+
 
