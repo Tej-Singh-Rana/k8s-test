@@ -8,4 +8,4 @@ spec:
       storage: 1Gi
   accessModes:
     - ReadWriteMany
-  volumeModes: Filesystem
+  volumeMode: Filesystem
