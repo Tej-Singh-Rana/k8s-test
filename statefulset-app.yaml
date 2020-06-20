@@ -1,31 +1,3 @@
-# ---
-# kind: persistentVolume
-# apiVersion: v1
-# metadata:
-#   name: solid
-# spec:
-#   capacity:
-#     storage: 2Gi
-#   accessModes:
-#     - ReadWriteMany
-#     - ReadWriteOnce
-#   volumeMode: Filesystem
-#   persistentVolumeReclaimPolicy: Delete
-#   nfs:
-#     path:
-#     server:
-# ---
-# kind: persistentVolumeClaim
-# apiVersion: v1
-# metadata:
-#   name: gotcha
-# spec:
-#   resources:
-#     requests:
-#       storage: 1Gi
-#   accessModes:
-#     - ReadWriteMany
-#   volumeMode: Filesystem
 ---
 kind: Service
 metadata:
@@ -45,9 +17,9 @@ metadata:
 apiVersion: apps/v1
 spec:
   replicas: 3
-  # selector:
-  #   matchLabels:
-  #     market: world
+  selector:
+    matchLabels:
+      static: webapp
   serviceName: nginx-svc
   template:
     metadata:
@@ -56,10 +28,6 @@ spec:
         static: webapp
         market: world
     spec:
-    #   volumes:
-    #     - name: mono
-    #       persistentVolumeClaim:
-    #         claimName: gotcha
       containers:
         - name: nginx
           image: nginx
@@ -71,7 +39,7 @@ spec:
       restartPolicy: Always
   volumeClaimTemplates:
     - metadata:
-        name: data
+        name: horo
       spec:
         resources:
           requests:
@@ -81,8 +49,3 @@ spec:
         accessModes:
           - ReadWriteOnce
         volumeMode: Filesystem
-
-
-
-
-
