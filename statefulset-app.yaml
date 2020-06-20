@@ -32,8 +32,6 @@ spec:
         - name: nginx
           image: nginx
           volumeMounts:
-            - name: mono
-              mounPath: /usr/share/nginx/html
             - name: horo
               mountPath: /opt/data
       restartPolicy: Always
