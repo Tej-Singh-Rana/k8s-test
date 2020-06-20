@@ -18,7 +18,7 @@ apiVersion: apps/v1
 spec:
   replicas: 3
   # In the 'Parallel' policy, will create Pods at once in parallel to match the desired state.  
-  podManagementPolicy: Parallel      # By default 'OrderedReady' --> Pods are created in increasing order (Pod-0, Pod-1 ..)
+  #podManagementPolicy: Parallel      # By default 'OrderedReady' --> Pods are created in increasing order (Pod-0, Pod-1 ..)
   selector:
     matchLabels:
       static: webapp
