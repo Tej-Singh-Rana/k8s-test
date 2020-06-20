@@ -1,0 +1,28 @@
+---
+kind: persistentVolume
+apiVersion: v1
+metadata:
+  name: solid
+spec:
+  capacity:
+    storage: 2Gi
+  accessModes:
+    - ReadWriteMany
+    - ReadWriteOnce
+  volumeMode: Filesystem
+  persistentVolumeReclaimPolicy: Delete
+  nfs:
+    path:
+    server:
+---
+kind: persistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: gotcha
+spec:
+  resources:
+    requests:
+      storage: 1Gi
+  accessModes:
+    - ReadWriteMany
+  volumeMode: Filesystem
