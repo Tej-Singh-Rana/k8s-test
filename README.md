@@ -42,13 +42,13 @@
 	* Key must contain an alphanumeric, hypens(-), dots(.), underscores(_). 
 	* We cannot give a key name for a directory path.
 	* kubectl create cm thanos --from-file=data=data/      ---> wrong
-> A whole directory
+- A whole directory
 	* kubectl create cm thanos --from-file=data/           ---> correct
-> Data stored in a file    
+- Data stored in a file    
 	* kubectl create cm data --from-file=config.json       ---> correct
-> Key/Value 
+- Key/Value 
 	* kubectl create cm data --from-file=key=value         ---> correct
-> A file stored in a custom key
+- A file stored in a custom key
 	* kubectl create cm data --from-file=strike=data.yaml  ---> correct
 - You can also mark a reference to a ConfigMap as optional (by setting configMapKeyRef.optional: true). In that 
   case, the container starts even if the ConfigMap doesn’t exist.
