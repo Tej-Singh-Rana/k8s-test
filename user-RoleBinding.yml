@@ -8,6 +8,6 @@ subjects:
   name: user01      # Name is case sensitive
   apiGroup: rbac.authorization.k8s.io
 roleRef:
- kind: role         # This must be Role or ClusterRole
+ kind: Role         # This must be Role or ClusterRole
  name: user01       # This must be a name of Role or ClusterRole which we created.
  apiGroup: rbac.authorization.k8s.io
