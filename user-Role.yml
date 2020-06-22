@@ -1,0 +1,9 @@
+kind: Role
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: user01
+  namespace: office
+rules:
+- apiGroups: [""]    # Empty string denoted to the core api group
+  resources: ["pods", "services", "nodes"]      # Resources must be in plural form
+  verbs: ["list", "watch", "get"]               # a form of request, done by user
