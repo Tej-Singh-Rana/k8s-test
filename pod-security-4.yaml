@@ -19,4 +19,4 @@ spec:
           - SYS_TIME
           - KILL
           - CHOWN
-          - CHMOD
+          - FOWNER
