@@ -1,0 +1,13 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: cap-1
+spec:
+  containers:
+    - image: alpine
+      name: caps
+      command: ["/bin/sleep","4500"]
+      securityContext:
+        add:                        # Adding Linux capabilities
+        - SYS_TIME
+        - KILL

@@ -1,0 +1,19 @@
+kind: Pod
+metadata:
+  name: corn
+apiVersion: v1
+spec:
+  containers:
+    - image: alpine
+      command: ["/bin/sleep","4500"]
+      name: alpha
+      env:
+        - name: NODE_NAME
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: spec.nodeName
+      securityContext:
+        drop:                      # Removing a Linux capabilities
+        - SYS_TIME
+        - KILL
