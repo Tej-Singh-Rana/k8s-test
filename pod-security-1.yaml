@@ -8,7 +8,6 @@ spec:
       name: alpha
       command: ["/bin/sh","-c"]
       args:
-      - sleep
-      - "4500"
+      - sleep "4500"
       securityContext:
         runAsUser: 450
