@@ -8,6 +8,7 @@ spec:
       name: caps
       command: ["/bin/sleep","4500"]
       securityContext:
-        add:                        # Adding Linux capabilities
-        - SYS_TIME
-        - KILL
+        capabilities:
+          add:                        # Adding Linux capabilities
+          - SYS_TIME
+          - KILL
