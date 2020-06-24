@@ -1,0 +1,24 @@
+kind: Deployment
+metadata:
+  name: host-pod
+apiVersion: apps/v1
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      pod: v1
+  template:
+    metadata:
+      name: b1
+      labels:
+        pod: v1
+    spec:
+      hostNetwork: true        # Will not create own Pod IP addr
+      containers:
+        - image: nginx
+          name: testing
+          ports:
+            - containerPort: 80
+              hostPort: 9000           # Will take host system's Port
+              protocol: TCP
+
