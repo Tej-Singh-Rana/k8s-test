@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: prod
+spec:
+  hostPID: true         # Can watch host system main process
+  hostIPC: true                  # IPC --> Inter-Process Communication
+  containers:
+    - name: prod
+      image: alpine
+      command: ["/bin/sh","-c"]
+      args:
+      - sleep
+      - "4500"
