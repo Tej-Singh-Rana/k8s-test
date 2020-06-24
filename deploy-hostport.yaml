@@ -13,7 +13,8 @@ spec:
       labels:
         pod: v1
     spec:
-      hostNetwork: true        # Will not create own Pod IP addr
+    # When hostNetwork is true then hostPort value must be same with containerPort.
+    # hostNetwork: true        # Will not create own Pod IP addr
       containers:
         - image: nginx
           name: testing
