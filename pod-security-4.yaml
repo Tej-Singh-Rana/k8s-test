@@ -18,3 +18,4 @@ spec:
           drop:                      # Removing a Linux capabilities
           - SYS_TIME
           - KILL
+          - CHOWN
