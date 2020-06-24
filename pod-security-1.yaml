@@ -1,0 +1,14 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: userid
+spec:
+  containers:
+    - image: alpine
+      name: alpha
+      command: ["/bin/sh","-c"]
+      args:
+      - sleep
+      - "4500"
+      securityContext:
+        runAsUser: 450
