@@ -1,0 +1,25 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: file-system
+spec:
+  containers:
+    - image: busybox:1.28
+      name: pack
+      command: ["/bin/sleep","5000"]
+      securityContext:
+        runOnlyRootFilesystem: true
+      volumeMounts:
+        - name: linked
+          mountPath: /opt/blankdir
+          readOnly: true
+        - name: file
+          mountPath: /tmp/editfile
+          readOnly: true
+  volumes:
+    - name: linked
+      emptyDir: {}
+    - name: file
+      hostPath:
+        path: /tmp/editfile
+        type: FileOrCreate
