@@ -8,8 +8,8 @@ spec:
       name: frontside
       command: ["/bin/sleep","4500"]
       securityContext:
-        readOnlyRootFilesystem: true
-      volumeMounts:
+        readOnlyRootFilesystem: true            # Makes container's filesystem read-only filesystem
+      volumeMounts:                             # Only can edit mounted path volumes file or directory
         - name: volcano
           mountPath: /tmp/logs
         - name: editor
