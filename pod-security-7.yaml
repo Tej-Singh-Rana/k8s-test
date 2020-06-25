@@ -1,0 +1,28 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: groups
+spec:
+  securityContext:
+    fsGroup: 855
+    supplementalGroups: [1200,1500]
+  containers:
+    - image: alpine
+      command: ["/bin/sleep","5000"]
+      name: group1
+      securityContext:
+        runAsUser: 2500
+      volumeMounts:
+        - name: pool
+          mountPath: /tmp/docs
+    - image: busybox:1.28
+      name: group2
+      securityContext:
+        runAsUser: 3500
+      command: ["/bin/sleep","5000"]
+      volumeMounts:
+        - name: pool
+          mountPath: /tmp/data
+  volumes:
+    - name: pool
+      emptyDir: {}
