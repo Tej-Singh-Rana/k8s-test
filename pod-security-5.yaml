@@ -1,0 +1,16 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: juice
+spec:
+  containers:
+    - image: nginx:alpine
+      name: frontside
+      securityContext:
+        readOnlyRootFilesystem: true
+      volumeMounts:
+        - name: volcano
+          mountPath: /usr/share/nginx/html/
+  volumes:
+    - name: volcano
+      emptyDir: {}
