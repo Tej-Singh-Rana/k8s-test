@@ -6,6 +6,7 @@ spec:
   containers:
     - image: alpine
       name: frontside
+      command: ["/bin/sleep","4500"]
       securityContext:
         readOnlyRootFilesystem: true
       volumeMounts:
