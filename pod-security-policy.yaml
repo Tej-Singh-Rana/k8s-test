@@ -13,12 +13,11 @@ spec:
   supplementalGroups:
     rule: runAsAny
   allowedCapabilities:
-    add:
-      - CHOWN
-# defaultAddCapabilities:
+  - CHOWN
+  defaultAddCapabilities:
+  - SYS_TIME
   readOnlyRootFilesystem: true
   volumes:
   - "*"
   seLinux:
     rule: runAsAny
-  
