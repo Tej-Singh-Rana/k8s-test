@@ -4,13 +4,19 @@ metadata:
   name: juice
 spec:
   containers:
-    - image: nginx:alpine
+    - image: alpine
       name: frontside
       securityContext:
         readOnlyRootFilesystem: true
       volumeMounts:
         - name: volcano
-          mountPath: /usr/share/nginx/html/
+          mountPath: /tmp/logs
+        - name: editor
+          mountPath: /opt/access.logs
   volumes:
     - name: volcano
       emptyDir: {}
+    - name: editor
+      hostPath:
+        path: /tmp/logs
+        type: FileOrCreate
