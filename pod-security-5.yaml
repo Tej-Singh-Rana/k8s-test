@@ -15,9 +15,9 @@ spec:
         - name: editor
           mountPath: /opt/access.logs
   volumes:
-    - name: volcano
+    - name: volcano           # Will create empty directory
       emptyDir: {}
     - name: editor
       hostPath:
-        path: /tmp/logs
-        type: FileOrCreate
+        path: /tmp/access.logs              # Will create empty file on schedule host system
+        type: FileOrCreate                  
