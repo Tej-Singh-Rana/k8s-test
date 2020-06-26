@@ -22,9 +22,9 @@ spec:
   seLinux:
     rule: RunAsAny
 
- Supported Values: - 
- runAsUser --> MustRunAs, MustRunAsNonRoot, RunAsAny
- seLinux --> RunAsAny, MustRunAs
- supplementalGroups --> MayRunAs, MustRunAs, RunAsAny
- fsGroup --> MustRunAs, MayRunAs, RunAsAny
- runAsGroup --> MustRunAs, RunAsAny, MayRunAs
+ # Supported Values: - 
+ # runAsUser --> MustRunAs, MustRunAsNonRoot, RunAsAny
+ # seLinux --> RunAsAny, MustRunAs
+ # supplementalGroups --> MayRunAs, MustRunAs, RunAsAny
+ # fsGroup --> MustRunAs, MayRunAs, RunAsAny
+ # runAsGroup --> MustRunAs, RunAsAny, MayRunAs
