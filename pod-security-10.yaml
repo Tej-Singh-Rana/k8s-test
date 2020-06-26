@@ -32,4 +32,9 @@ spec:
   hostNetwork: false
   hostIPC: false
   hostPID: false
+  hostPorts:
+    - min: 0
+      max: 500
+  readOnlyRootFilesystem: false
+
 
