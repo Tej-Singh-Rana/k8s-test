@@ -1,0 +1,14 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: secops
+spec:
+  securityContext:
+    runAsUser: 1500
+  containers:
+    - image: alpine
+      name: code
+      command: ["/bin/sleep","5000"]
+      securityContext:
+        runAsUser: 5000
+        allowPrivilegeEscalation: true
