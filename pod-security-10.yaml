@@ -1,0 +1,35 @@
+kind: PodSecurityPolicy
+apiVersion: Policy/v1beta1
+metadata:
+  name: restrict
+spec:
+  privileged: false            # container will get rejected if privileged: true
+  allowPrivilegeEscalation: false         # non-root + disallow privilege escalation
+  requiredDropCapabilities:
+    - ALL
+  # Volumes allowed
+  volumes:
+  - configMap
+  - secret
+  - hostPath
+  - persistentVolumeClaim
+  - downwardAPI
+  - emptyDir
+  runAsUser:
+    rule: MustRunAsNonRoot
+  supplementalGroups:
+    rule: MustRunAs
+    range:
+    - min: 2
+      max: 10
+  fsGroup:
+    rule: MustRunAs
+    range:
+    - min: 2
+      max: 10
+  seLinux:
+    rule: RunAsAny
+  hostNetwork: false
+  hostIPC: false
+  hostPID: false
+
