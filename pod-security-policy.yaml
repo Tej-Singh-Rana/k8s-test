@@ -5,13 +5,13 @@ metadata:
 spec:
   allowPrivilegeEscalation: false
   seLinux:
-    rule: runAsAny
+    rule: RunAsAny
   runAsUser:
-    rule: runAsAny
+    rule: RunAsAny
   fsGroup:
-    rule: runAsAny
+    rule: RunAsAny
   supplementalGroups:
-    rule: runAsAny
+    rule: RunAsAny
   allowedCapabilities:
   - CHOWN
   defaultAddCapabilities:
@@ -20,4 +20,11 @@ spec:
   volumes:
   - "*"
   seLinux:
-    rule: runAsAny
+    rule: RunAsAny
+
+ Supported Values: - 
+ runAsUser --> MustRunAs, MustRunAsNonRoot, RunAsAny
+ seLinux --> RunAsAny, MustRunAs
+ supplementalGroups --> MayRunAs, MustRunAs, RunAsAny
+ fsGroup --> MustRunAs, MayRunAs, RunAsAny
+ runAsGroup --> MustRunAs, RunAsAny, MayRunAs
