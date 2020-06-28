@@ -1,0 +1,18 @@
+# Allowing traffic 
+
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-traffic
+  namespace: network
+spec:
+  podSelector:
+    matchLabels:
+      env: network
+      noodles: maggie
+  ingress:
+    - From:
+       - podSelector:
+            matchLabels:
+              target: v1
+              noodles: maggie
