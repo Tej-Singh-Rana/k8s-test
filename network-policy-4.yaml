@@ -11,7 +11,7 @@ spec:
       env: network
       noodles: maggie
   ingress:
-    - From:
+    - from:
        - podSelector:
             matchLabels:
               target: v1
