@@ -1,0 +1,11 @@
+# Blocking outgoing traffic from the pods
+
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: egress-deny
+spec:
+  podSelector: {}
+  policyTypes:        # In respective of Egress, must specify in policy Types
+    - Egress
+  egress: []
