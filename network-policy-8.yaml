@@ -1,0 +1,18 @@
+# Allow connection for specific Pod and port number
+
+kind: NetworkPolicy
+metadata:
+  name: layer
+apiVersion: networking.k8s.io/v1
+spec:
+  podSelector:
+    matchLabels:
+      hash: sha
+  ingress:                    # By default, PolicyType is ingress
+    - from:
+      - podSelector:
+          matchLabels:
+            encrypt: strong
+      ports:
+        - port: 80
+          protocol: TCP         # By default, it's choose TCP
