@@ -1,0 +1,18 @@
+# Allow connection for a specific Pods
+
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: connect
+spec:
+  podSelector:
+    matchLabels:
+       app: code
+  ingress:
+  - from:
+    - podSelector:
+        matchLabels:
+           app: data
+    - podSelector:
+        matchLabels:
+           app: frog 
