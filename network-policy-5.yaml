@@ -1,0 +1,8 @@
+kind: NetworkPolicy
+metadata:
+  name: deny-all
+apiVersion: networking.k8s.io/v1
+spec:
+  podSelector:
+    matchLabels: {}     # Select all the pods
+  ingress: []          # Empty array deny all traffic within namespace
