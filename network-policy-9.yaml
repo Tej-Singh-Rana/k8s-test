@@ -1,0 +1,9 @@
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: allow-one
+spec:
+  podSelector:         # Select Pod of match labels
+    matchLabels:
+      app: web
+  ingress: []          # Deny incoming traffic from all pods
