@@ -4,11 +4,13 @@ metadata:
   name: quota-class
 spec:
   hard:
-    pods: "10"
+  # Pod count will included with deployments,daemonsets,replicationcontroller,jobs,cronjobs and replicasets  
+    pods: "10"         
     requests.cpu: 400m
     requests.memory: 500Mi
     limits.cpu: "1"
     limits.memory: 2Gi
+    replicationcontroller: "3"
     extensions/deployments: "10"
     extensions/daemonsets: "3"
     services: "10"
