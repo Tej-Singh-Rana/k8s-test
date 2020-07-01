@@ -10,7 +10,7 @@ spec:
     requests.memory: 500Mi
     limits.cpu: "1"
     limits.memory: 2Gi
-    replicationcontroller: "3"
+    replicationcontrollers: "3"
     extensions/deployments: "10"
     extensions/daemonsets: "3"
     services: "10"
