@@ -1,0 +1,16 @@
+kind: ReplicationController
+apiVersion: v1
+metadata:
+  name: rc
+spec:
+  template:
+    metadata:
+      name: web
+      labels:
+        app: rc
+    spec:
+      containers:
+        - image: nginx
+          name: nginx
+  replicas: 2
+  # If we will not define selector, by default it will take from Pod's template labels section.
