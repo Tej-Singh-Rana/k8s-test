@@ -1,0 +1,18 @@
+kind: ReplicaSet
+apiVersion: apps/v1
+metadata:
+  name: rs
+spec:
+  replicas: 3
+  selector:    # matchLabels, matchExpressions
+    matchLabels:
+      global: world
+  template:
+    metadata:
+      name: solid
+      labels:
+        global: world
+    spec:
+      containers:
+        - image: nginx:alpine
+          name: nginx
