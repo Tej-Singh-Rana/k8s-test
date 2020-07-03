@@ -1,0 +1,11 @@
+# Binding is a namespace scoped.
+
+kind: Binding
+apiVersion: v1
+metadata:
+  name: nginx     # Pod name
+target:
+  apiVersion: v1
+  name: node01          # Node name
+  kind: Node            # Resource category
+  namespace: default    # Namespace 
