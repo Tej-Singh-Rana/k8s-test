@@ -1,0 +1,17 @@
+# Manual Scheduling
+
+kind: Pod
+metadata:
+  name: manual
+  labels:
+    stable: constant
+apiVersion: v1
+spec:
+  containers:
+    - name: nginx
+      image: nginx:alpine
+      ports:
+        - containerPort: 80
+          name: http
+  nodeName: node03         # To schedule manually, we will use "nodeName" field. When no scheduler available. 
+  restartPolicy: OnFailure
