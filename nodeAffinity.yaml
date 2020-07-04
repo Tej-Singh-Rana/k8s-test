@@ -1,0 +1,20 @@
+kind: Pod
+metadata:
+  name: affinity
+  labels:
+    node/pass: true
+apiVersion: v1
+spec:
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+          - matchExpressions:
+            - key: solar                    # This label must be tagged/availabe in Node
+              operator: "Equal"             # Otherwise Pod will display pending status
+              values:
+                - "panel"
+                - "light"
+  containers:
+    - image: nginx:alpine
+      name: alien
