@@ -1,0 +1,19 @@
+# LimitRange is a namespace scoped.
+# We can assign default limits and default requests for a Pod.
+# In a Pod, if we haven't specify any resources then it will get default values from LimitRange resources.
+# If we only assign default and not a defaultRequest then it will be assume default as a defaultRequest.
+
+apiVersion: v1
+kind: LimitRange
+metadata:
+   name: cpu-memory-limit
+   namespace: default
+spec:
+  limits:            # Only contain single field
+    - default:
+       cpu: "2"                         # 1000Milicores = 1vCPU | value >= 1m | 0.1=100m 
+       memory: 2Gi                      # 1Ki = 1024 bytes | 1K = 1000 bytes
+      defaultRequest:
+        cpu: "1"
+        memory: 512Mi                   # If we will not request, it will assign this defaultRequest values.
+      type: Container                   # Type is "Container", applicable on container.
