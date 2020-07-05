@@ -1,8 +1,6 @@
-
-
-
-
-
+# Pod updates may not change fields other than below: -
+# spec.containers[*].image, spec.initContainers[*].image, spec.activeDeadlineSeconds, spec.tolerations
+#
 
 kind: Pod
 metadata:
