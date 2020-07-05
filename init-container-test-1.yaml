@@ -1,0 +1,37 @@
+# Init containers always complete before main container. If a container fails to start due to the runtime or exists with failure
+# It is retried according to the Pod `restartPolicy`.
+# If Pod restart policy is set to `Always` then the init containers use restartPolicy `OnFailure`.
+#
+
+
+
+apiVersion: v1
+metadata:
+  name: policy-checker
+  labels:
+    check: policy
+kind: Pod
+spec:
+  volumes:
+    - name: test-policy
+      emptyDir: {}
+  containers:
+    - name: policy-checker
+      image: alpine
+      volumeMounts:
+        - name: test-policy
+          mountPath: /tmp/
+      command:
+      - sh
+      - -c 
+      - echo -n "Completed successfully without any error - restartPolicy `Always` -- MainContainer" >> /tmp/app.log; sleep 4500;
+  initContainers:
+    - image: busybox:1.28
+      name: init-policy
+      command:
+      - sh
+      - -c
+      - echo " restartPolicy set to OnFailure - InitContainers" > /tmp/app.log;sleep 5;
+      volumeMounts:
+        - name: test-policy
+          mountPath: /tmp/
