@@ -10,6 +10,7 @@ spec:
       emptyDir: {}
   containers:
   - image: busybox:1.28
+    name: main-container
     command: 
     - sh
     - -c
