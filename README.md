@@ -56,3 +56,38 @@
 - You can also mark a reference to a ConfigMap as optional (by setting configMapKeyRef.optional: true). In that 
   case, the container starts even if the ConfigMap doesn’t exist.
   * Environment variables doesn't support hyphens(-) is in the key. `http-top` is not a valid identifier. It should be http_top.
+
+----------------------------------------------------------------------------------------------------------------
+
+OS Upgrades
+
+- If any Pod is schedule on Node and that is not operate by ReplicaSets, Deployments, Replicationcontroller then it will not possible to unschedule in normal way. 
+  * One thing, we can do first delete the Pod then process ahead for unschedule to Node.
+  * Second thing, run the command with forcefully it will delete single Pods and proceed unschedule process.
+
+- We have to run the following command: -
+
+```
+kubectl drain node02 --force --ignore-daemonsets
+
+```
+> Note: - That Pod is not a part of any self heal resources so it will be deleted for ever and not recoverable or not scheduleable on other Nodes.
+
+- To get back the unschedule Node to on Ready/Scheduling state then run the following command: -
+
+``` 
+kubectl uncordon node02
+
+```
+If you wants to Node be unscheduleable and not ready state without evicted already available Pod then run the following command: -
+
+```
+kubectl cordon node01
+
+```
+- To get back on Schedule/Ready state then run the following command: -
+
+```
+kubectl uncordon node01
+
+```
