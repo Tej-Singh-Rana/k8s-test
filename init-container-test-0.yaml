@@ -32,7 +32,7 @@ spec:
   - image: busybox:1.28
     name: alpha-2
     command:
-    - -sh
+    - sh
     - -c
     args:
     - date > /tmp/alpha-2.log;sleep 5;
@@ -42,7 +42,7 @@ spec:
   - image: busybox:1.28
     name: alpha-3
     command:
-    - -sh
+    - sh
     - -c
     args:
     - date > /tmp/alpha-3.log; sleep 5;
