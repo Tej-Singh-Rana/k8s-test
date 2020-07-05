@@ -1,0 +1,21 @@
+
+
+
+
+
+
+kind: Pod
+metadata:
+  name: updation
+apiVersion: v1
+spec:
+  terminationGracePeriodSeconds: 30
+  containers:
+    - image: nginx
+      name: nginx
+      ports:
+        - containerPort: 80
+  initContainers:
+    - image: busybox:1.28
+      name: updater
+      command: ["sleep","10"]
