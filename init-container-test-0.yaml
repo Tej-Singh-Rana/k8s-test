@@ -1,0 +1,50 @@
+# Kubelet runs the Pod's init containers in the order they appear in the Pod's spec.
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: order
+spec:
+  volumes:
+    - name: test-vol
+      emptyDir: {}
+  containers:
+  - image: busybox:1.28
+    command: 
+    - sh
+    - -c
+    - echo -n "Testing to check sequential order and timing of Init-containers" > /tmp/main.log && sleep 4500; done;
+    volumeMounts:
+      - name: test-vol
+        mountPath: /tmp/
+  initContainers:
+  - image: alpine
+    name: alpha-1
+    command: 
+    - sh
+    - -c
+    args:
+    - date > /tmp/alpha-1.log;sleep 5;done;
+    volumeMounts:
+      - name: test-vol
+        mountPath: /tmp/
+  - image: busybox:1.28
+    name: alpha-2
+    command:
+    - -sh
+    - -c
+    args:
+    - date > /tmp/alpha-2.log;sleep 5;done;
+    volumeMounts:
+      - name: test-vol
+        mountPath: /tmp/
+  - image: busybox:1.28
+    name: alpha-3
+    command:
+    - -sh
+    - -c
+    args:
+    - date > /tmp/alpha-3.log; sleep 5; done;
+    volumeMounts:
+      - name: test-vol
+        mountPath: /tmp/
