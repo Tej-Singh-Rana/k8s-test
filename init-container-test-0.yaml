@@ -14,7 +14,8 @@ spec:
     command: 
     - sh
     - -c
-    - echo -n "Testing to check sequential order and timing of Init-containers" > /tmp/main.log && sleep 4500;
+    - echo -n "Testing to check sequential order and timing of Init-containers" > /tmp/main.log && \
+      date >> /tmp/main.log; sleep 4500;
     volumeMounts:
       - name: test-vol
         mountPath: /tmp/
