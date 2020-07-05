@@ -1,4 +1,5 @@
 # k8s-test
+
 ```
 ---------------------------------------------------------------------------------------------------------
 ||    k8s     ||         kubernetes      ||        master        ||        worker        || 
@@ -21,7 +22,8 @@
 
 ```
 -----------------------------------------------------------------------------------------------------------------
-- StorageClass
+### StorageClass
+
 	* If we will not write storageClassName in PVC manifests file then by default storage class will assign to it.
 	* To check the storage class has default assign capabilities or not
 	* annotations:
@@ -41,7 +43,8 @@
 
 -----------------------------------------------------------------------------------------------------------------
 
-- ConfigMaps
+### ConfigMaps
+
 	* Key must contain an alphanumeric, hypens(-), dots(.), underscores(_). 
 	* We cannot give a key name for a directory path.
 	* kubectl create cm thanos --from-file=data=data/      ---> wrong
@@ -59,7 +62,7 @@
 
 ----------------------------------------------------------------------------------------------------------------
 
-OS Upgrades
+### OS Upgrades
 
 - If any Pod is schedule on Node and that is not operate by ReplicaSets, Deployments, Replicationcontroller then it will not possible to unschedule in normal way. 
   * One thing, we can do first delete the Pod then process ahead for unschedule to Node.
