@@ -24,6 +24,7 @@
 -----------------------------------------------------------------------------------------------------------------
 ### StorageClass
 
+- Specifications: -
 	* If we will not write storageClassName in PVC manifests file then by default storage class will assign to it.
 	* To check the storage class has default assign capabilities or not
 	* annotations:
@@ -45,6 +46,7 @@
 
 ### ConfigMaps
 
+- Specifications: -
 	* Key must contain an alphanumeric, hypens(-), dots(.), underscores(_). 
 	* We cannot give a key name for a directory path.
 	* kubectl create cm thanos --from-file=data=data/      ---> wrong
