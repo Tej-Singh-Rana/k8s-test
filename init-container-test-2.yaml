@@ -1,0 +1,26 @@
+# If init containers will fail, then Pod's main container won't be run. Because init containers continuously executing to get the status of success.
+# Init-containers always run before main container so priority high to success of init-containers, Otherwise it will be goes into pending state.
+# A Pod cannot be `Ready` until all init containers have succeeded.
+# The ports on an init container are not aggregated under a Service. As you know they just executed or completed before main container of Pod. After that they went into `terminated` state.
+# If the `Pod restarts`, or is restarted, all init containers must execute again. Because they execute or completion certain tasks before main containers.
+# They live with Pod as per Pod lifecycle, i.e Pod deleted, init container deleted. Pod restarted, init container restarted. 
+# Init container not support livenessProbe, readinessProbe, startupProbe.
+
+kind: Pod
+apiVersion: v1
+metadata:
+  name: test-failure
+spec:
+  containers:
+    - image: nginx
+      name: nginx
+  initContainers:
+    - name: fail
+    # image: busybox:1.28   # This one is correct image
+      image: busybox:111    # It will be fail, due to wrong image and continuous restarts to achieve success.
+      command: ["sleep","10"]
+    - image: busybox:1.28
+      name: pass 
+      command: ["sleep","5"]
+
+# Init container can be restart if we change into init container spec fields.
