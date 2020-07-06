@@ -105,13 +105,16 @@ kubectl uncordon node01
 - To maintain a backup of ETCD cluster: - 
 	* We have to follow these steps.
   * ETCDCTL_API=3 because functions are working in API version 3.
+
 > Note: - You cannot perform ETCD API version 2 commands, You have to change it into API version 2 to make it work.
+  
   * You can do export ETCDCTL_API=3 to expose in system ENV.
 
 ```
   etcdctl snapshot save --cacert=/etc/kubernetes/pki/etcd/ca.crt --cert=/etc/kubernetes/pki/etcd/server.crt --key=/etc/kubernetes/pki/etcd/server.key --endpoints=https://127.0.0.1:2379  <path of location to save snapshot of ETCD>
+
 ```
-	* Before attempting this, check it that following command is working or not.
+- Before attempting this, check it that following command is working or not.
 
 ```
 etcdctl member list --cacert=/etc/kubernetes/pki/etcd/ca.crt --cert=/etc/kubernetes/pki/etcd/server.crt --key=/etc/kubernetes/pki/etcd/server.key --endpoints=https://127.0.0.1:2379
@@ -119,16 +122,19 @@ etcdctl member list --cacert=/etc/kubernetes/pki/etcd/ca.crt --cert=/etc/kuberne
 O/P :  7b20d9b132c379ac, started, controlplane, https://172.17.0.8:2380, https://172.17.0.8:2379 
 
 ```
-	* That means successfully run.
+> That means successfully ran.
 
 - You can check version of ETCD and location of Keys and Certificates from etcd.yaml manifests file or To inspect/describe the etcd-master Pod,
   which is located in kube-system namespace.
 
 - To check the version of ETCD inside etcd Pod.
+
 > List of Pods in kube-system namespaces
 
 ```
 kubectl get po -n kube-system
+
+# To check the version of ETCD cluster
 
 kubectl exec etcd-master -n kube-system -- etcdctl version
 
