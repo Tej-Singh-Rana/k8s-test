@@ -99,6 +99,8 @@ kubectl uncordon node01
 
 ### ETCD BACKUP & RESTORE
 
+- ETCD Backup: -
+
 - ETCD cluster volume already mounted in master node at location /var/lib/etcd. If you will inspect/describe etcd-master Pod in kube-system namespace.
   You will see in volumeMounts.mountPath to volumes.hostPath.
 
@@ -148,3 +150,45 @@ kubectl describe pod etcd-master -n kube-system
 
 ```
 - You will get all the details of etcd cluster.
+
+- ETCD Restore: -
+
+- To restore backup in ETCD cluster
+  * First `export ETCDCTL_API=3` in system ENV.
+  * To take a help of etcdctl subcommands: -
+
+```
+etcdctl snapshot restore -h
+
+```
+  * To take a restore of data with help of backup data.
+```
+# Make sure to do `export ETCDCTL_API=3` otherwise add in beginning of the command.
+
+ETCDCTL_API="3" etcdctl snapshot restore \
+--cacert /etc/kubernetes/pki/etcd/ca.crt --cert /etc/kubernetes/pki/etcd/server.crt \
+--key /etc/kubernetes/pki/etcd/server.key \
+--endpoints=127.0.0.1:2379 --name master \
+--data-dir="/var/lib/etcd-backup" --initial-advertise-peer-urls="https://127.0.0.1:2380" \
+--initial-cluster-token="etcd-cluster-1" \
+--initial-cluster="master=https://127.0.0.1:2380"   /tmp/snapshot-data.db
+
+```
+```
+Options: -
+> --name                                --> Name of the controlplane node component
+> --data-dir                            --> New location of etcd directory
+> --initial-cluster-token               --> New name of ETCD cluster 
+> --initial-advertise-peer-urls         --> Interact with master node and helpful while restoring data
+> --initial-cluster                     --> Initial cluster configuration for restore bootstrap
+
+```
+- After this setup configuration, move to the static Pod manifest path of kubernetes. (/etc/kubernetes/manifests)
+- Add these lines into `command` section of etcd.yaml manifest file.
+  * --data-dir=/var/lib/etcd-backup
+  * --initial-cluster-token=etcd-cluster-1
+- Change into the volumes section: -
+  * volumeMounts.mountPath: - /var/lib/etcd to /var/lib/etcd-backup
+  * volumes.hostPath: - /var/lib/etcd to /var/lib/etcd-backup
+- After this whole configuration of ETCD cluster, kubelet will detect these changes and automatically restart the Pods. It will take a few minutes. 
+
