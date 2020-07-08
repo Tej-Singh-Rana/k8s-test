@@ -30,8 +30,14 @@ kubectl config set-credentials tej@kubernetes --client-certificate="/root/tej.cr
 ```
 
 ### To create a new set-context
+> We are using kubernetes cluster at present
 ```
 kubectl config set-context tej@kubernetes --cluster=kubernetes --user=tej@kubernetes
+```
+
+### To view the all clusters
+```
+kubectl config get-clusters
 ```
 
 ### To set a new context
