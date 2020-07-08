@@ -1,4 +1,4 @@
-kind: HorizontalPodAutoScaler
+kind: HorizontalPodAutoscaler
 apiVersion: autoscaling/v1
 metadata:
   name: hpa-nginx
