@@ -1,0 +1,18 @@
+kind: ClusterRole                 # Globally defined, cluster scope
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: login-role
+spec:
+  resources:
+  - persistentvolumes
+  - storages
+  apiGroups:
+  - ""
+  verbs:
+  - get
+  - list
+  - create
+  - watch
+  - delete
+  - update
+  - patch
