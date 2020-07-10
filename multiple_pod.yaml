@@ -1,33 +1,33 @@
 kind: Pod
 apiVersion: v1
 metadata:
-	name: elephant
-	namespace: default
+  name: elephant
+  namespace: default
 
 spec:
-	containers:
-		- args:
-			- localhost
-			command:
-			- ping
-			image: polinux/stress
-			name: elephant
-			resources:
-			 limits:
-			   cpu: 2   
-			   memory: 250Mi
-			 requests:
-			   cpu: 1
-				 memory: 20Mi
-		- image: nginx
-		  name: nginx-post
-		  ports:
-		  - containerPort: 80
-			volumeMounts:
-			- mountPath: /tmp/     # container
-			  name: test-volume
+  containers:
+  - args:
+    - localhost
+    command:
+    - ping
+    image: polinux/stress
+    name: elephant
+    resources:
+    limits:
+      cpu: 2   
+      memory: 250Mi
+    requests:
+      cpu: 1
+      memory: 20Mi
+  - image: nginx
+    name: nginx-post
+    ports:
+    - containerPort: 80     # container port
+    volumeMounts:
+    - mountPath: /tmp/     # container's location
+      name: test-volume
   volumes:
   - name: test-volume
     hostPath:              # directory location on host -- Worker-Node side
-       path: /tmp/
-       type: Directory
+      path: /tmp/          # host's location
+      type: Directory
