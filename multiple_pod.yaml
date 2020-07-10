@@ -13,12 +13,12 @@ spec:
     image: polinux/stress
     name: elephant
     resources:
-    limits:
-      cpu: 2   
-      memory: 250Mi
-    requests:
-      cpu: 1
-      memory: 20Mi
+      limits:
+        cpu: 2   
+        memory: 250Mi
+      requests:
+        cpu: 1
+        memory: 20Mi
   - image: nginx
     name: nginx-post
     ports:
