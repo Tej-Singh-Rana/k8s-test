@@ -1,0 +1,25 @@
+kind: Pod
+metadata:
+	name: multi-container
+apiVersion: v1
+spec:
+	containers:
+		- image: busybox
+		  name: apple
+		  command:
+		  	- sh
+		  	- -c
+		  	- sleep "4500"
+		- image: busybox
+		  name: orange
+		  command:
+		  	- sh
+		  	- -c
+		  	- sleep "4500"
+		- image: busybox
+		  name: banana
+		  command:
+		  	- sh
+		  	- -c
+		  	- sleep "3500"
+		  	
