@@ -1,26 +1,26 @@
 kind: Pod
 metadata:
-	name: multi-container
-	labels:
-		app: multi
+  name: multi-container
+  labels:
+   app: multi
 apiVersion: v1
 spec:
-	containers:
-		- image: busybox
-		  name: apple
-		  command:
-		  	- sh
-		  	- -c
-		  	- sleep "4500"
-		- image: busybox
-		  name: orange
-		  command:
-		  	- sh
-		  	- -c
-		  	- sleep "4500"
-		- image: busybox
-		  name: banana
-		  command:
-		  	- sh
-		  	- -c
-		  	- sleep "3500"
+  containers:
+  - image: busybox
+    name: apple
+    command:
+    - sh
+    - -c
+    - sleep "4500"
+  - image: busybox
+    name: orange
+    command:
+    - sh
+    - -c
+    - sleep "4500"
+  - image: busybox
+    name: banana
+    command:
+    - sh
+    - -c
+    - sleep "3500"
