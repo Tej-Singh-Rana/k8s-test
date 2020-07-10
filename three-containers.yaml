@@ -1,6 +1,8 @@
 kind: Pod
 metadata:
 	name: multi-container
+	labels:
+		app: multi
 apiVersion: v1
 spec:
 	containers:
@@ -22,4 +24,3 @@ spec:
 		  	- sh
 		  	- -c
 		  	- sleep "3500"
-		  	
