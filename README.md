@@ -192,3 +192,153 @@ Options: -
   * volumes.hostPath: - /var/lib/etcd to /var/lib/etcd-backup
 - After this whole configuration of ETCD cluster, kubelet will detect these changes and automatically restart the Pods. It will take a few minutes. 
 
+### E2E Test-0
+- Warnings: -
+```
+2020/07/11 03:50:19 Warning: Couldn't find directory src/k8s.io/kubernetes under any of GOPATH /root/go, defaulting to /root/go/src/k8s.io/kubernetes
+2020/07/11 03:50:19 Warning: Couldn't find directory src/sigs.k8s.io/cloud-provider-azure under any of GOPATH /root/go, defaulting to /root/go/src/k8s.io/cloud-provider-azure
+2020/07/11 03:50:19 Warning: Couldn't find directory src/k8s.io/kubernetes under any of GOPATH /root/go, defaulting to /root/go/src/k8s.io/kubernetes
+```
+----
+1. You can make a directory of above missing directories in under $HOME/go/src to resolve this issues.
+2. You can ignore above errors. It will not impact in your e2e test.
+3. Clone this repo in your current working directory (https://github.com/kubernetes/test-infra.git).
+```
+ $ cd $HOME
+ $ git clone https://github.com/kubernetes/test-infra.git
+```
+4. After successfully cloned. Move into the directory test-infra and run the following command: -
+> It will downloaded some modules/dependencies/packages.
+```
+ $ cd /root/test-infra/kubetest
+ $ GO111MODULE=on go install ./kubetest
+```
+5. Completion of downloading and extraction of modules/packages. Move into the /root/go/bin path.
+```
+ $ cd /root/go/
+ $ ls
+ $ bin  pkg
+ $ cd bin/
+ $ ls
+ $ kubetest
+```
+6. Set a environment variable in your system to allocate identity of about master component.
+```
+# Example : "172.17.0.51:6443"
+$ export KUBE_MASTER_API="{master-ip}:{master-port}"
+# Example : master, controlplane
+$ export KUBE_MASTER={master-name}
+```
+7. After successfully setup all configurations. Run the following command to perform e2e test.
+```
+# Move into the bin directory of GOPATH (/root/go/bin).
+$ cd /root/go/bin/
+
+# kubetest is available in an executable mode. It will take long time to run the tests.
+$ kubetest --test --provider=skeleton --extract=v1.18.0 --test_args=--ginkgo.focus="\[Conformance\]" > test-result
+
+Options: -
+1. --test        - This flag tells kubetest to run the test.e2e binary built/extracted from the kubernetes/kubernetes repo.
+2. --provider    - This flag tells to perform in which platform. "skeleton" for local environment.
+3. --extract     - This flag tells what version of kubernetes would like to test. Must be match with your Kubernetes cluster version.   
+```
+> Note: - `--extract` value must be match with your `Kubernetes version`. 
+
+8. To run the selected resources. Run the following command: -
+```
+$ cd /root/go/bin
+$ kubetest --test --provider=skeleton --extract=v1.18.0 --test_args=--ginkgo.focus="\[Secrets\]" > secrets-testresult
+
+# Deployments | Pods | ConfigMaps | Secrets | ServiceAccount | RoleBinding | Role | ClusterRole | ClusterRoleBinding | more..
+```
+9. You can check the details about kubernetes version, success, failed status from stored file.
+```
+$ cat secrets-testresult
+```
+
+### E2E Test-1 
+
+- Correct way: -
+
+1. Set a environment variable in your system to allocate identity of about master component.
+```
+# Example : "172.17.0.51:6443"
+# You can check kube-apiserver running details from `kubectl cluster-info`
+
+$ export KUBE_MASTER_API="{master-ip}:{master-port}"
+
+# Example : master, controlplane
+
+$ export KUBE_MASTER={master-name}
+```
+
+2. Clone a repo in your current working directory (https://github.com/kubernetes/test-infra.git).
+```
+$ git clone https://github.com/kubernetes/test-infra.git
+```
+
+3. Move into the cloned directory test-infra and run the following command: -
+```
+$ cd /root/test-infra
+
+# Run this from the clone repo
+
+$ GO111MODULE=on go install ./kubetest
+```
+
+4. (Optional) Check/List the directory contents: -
+```
+$ ls -l /root/go
+total 12
+drwxr-xr-x 4 root root 4096 Jul 11 05:04 bin
+drwxr-xr-x 4 root root 4096 Jun  8 22:04 pkg
+drwxr-xr-x 8 root root 4096 Jul 11 04:53 src
+
+$ cd /root/go
+
+$ ls -l bin/
+total 99832
+-rwxr-xr-x 1 root root 41330568 Jun  8 22:04 kind
+-rwxr-xr-x 1 root root 60892683 Jul 11 04:56 kubetest
+```
+
+5. Move into the bin directory. `kubetest` is available in executable mode.
+```
+# Move into the bin directory of GOPATH (/root/go/bin).
+$ cd /root/go/bin/
+
+# kubetest is available in an executable mode. It will take long time to run the tests.
+
+$ kubetest --test --provider=skeleton --extract=v1.18.0 --test_args=--ginkgo.focus="\[Secrets\]" > secret-testresult
+
+Options: -
+1. --test        - This flag tells kubetest to run the test.e2e binary built/extracted from the kubernetes/kubernetes repo.
+2. --provider    - This flag tells to perform in which platform. "skeleton" for local environment.
+3. --extract     - This flag tells what version of kubernetes would like to test. Must be match with your Kubernetes cluster version.   
+```
+> Note: - `--extract` value must be match with your `Kubernetes version`. 
+
+6. To run the selected resources. Run the following command: -
+```
+$ cd /root/go/bin
+
+$ kubetest --test --provider=skeleton --extract=v1.18.0 --test_args=--ginkgo.focus="\[ConfigMaps\]" > cm-testresult
+
+# Deployments | Pods | ConfigMaps | Secrets | ServiceAccount | RoleBinding | Role | ClusterRole | ClusterRoleBinding | more..
+```
+
+7. You can check the details about kubernetes version, success, failed status from stored file.
+```
+$ cat cm-testresult
+```
+
+8. You can add `--timeout` flag to finish a test in a given duration time but not all.
+```
+$ cd /root/go/bin/
+
+# This "Conformance" test for 10min. Otherwise it will take 1hour+ to successfully complete.
+# Testing timing is 10 minutes.
+
+$ kubetest --test --provider=skeleton --extract=v1.18.0 --test_args=--ginkgo.focus="\[Conformance\]" --timeout=10m > quick_testresult 
+```
+
