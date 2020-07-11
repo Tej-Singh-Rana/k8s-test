@@ -302,7 +302,7 @@ total 99832
 -rwxr-xr-x 1 root root 60892683 Jul 11 04:56 kubetest
 ```
 
-5. Move into the bin directory. `kubetest` is available in executable mode.
+5. Move into the bin directory of GOPATH (/root/go/bin). `kubetest` is available in executable mode.
 ```
 # Move into the bin directory of GOPATH (/root/go/bin).
 $ cd /root/go/bin/
