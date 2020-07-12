@@ -1,0 +1,13 @@
+kind: CertificateSigningRequest
+apiVersion: certificates.k8s.io/v1
+metadata:
+  name: tej
+spec:
+  groups:
+  - system:authenticated
+  usages:
+  - digital signature
+  - key encipherment
+  - server auth
+  request:
+    <(cat tej.csr | base64 -w0 | tr -d '\n')>
