@@ -1,0 +1,12 @@
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: login-bind
+subjects:
+  - apiGroup: v1
+    name: login-sa
+    kind: ServiceAccount
+roleRef:
+  apiGroup: ""
+  name: login-case
+  kind: ClusterRole
