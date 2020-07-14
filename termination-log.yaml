@@ -11,5 +11,5 @@ spec:
       command:
         - sh
         - -c
-        - 'echo "Collected logs of the system, Done. Delete the Pod. Don't inspect it." /dev/termination-logs; exit 1'
+        - echo "Collected logs of the system, Done. Delete the Pod. Don't inspect it." > /dev/termination-logs; exit 1
       terminationMessagePath: /dev/termination-logs
