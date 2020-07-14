@@ -14,11 +14,17 @@ spec:
         - "sleep 36000"
   affinity:
     nodeAffinity:
-      preferredDuringSchedulingIgnoredDuringExecution:
-        - weight: 1
+      preferredDuringSchedulingIgnoredDuringExecution:           # In this node affinity type, You describe your preference
+        - weight: 1        # It's a preference weightage, int form and value must be between 1-100.
           preference:
             matchExpressions:
               - key: run                       
                 operator: NotIn               # To ignore soft node affinity, then add "NotIn" in operator.
-                values:
+                values:           # values in an array form, so we can define multiple values.
                 - app
+        - weight: 90              # weight in an array from so we can define multiple weight as per requirements.
+          preference:
+            matchExpressions:
+              - key: app
+                operator: Exists              # Not required values in the presence of "Exists" operator.
+                                              # Operator: - In, NotIn, Exists, DoesNotExist, Gt and Lt.
