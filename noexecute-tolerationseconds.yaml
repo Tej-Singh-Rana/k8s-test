@@ -1,0 +1,19 @@
+kind: Pod
+metadata:
+  name: toleration
+  labels:
+    exec: notoleration
+apiVersion: v1
+spec:
+  containers:
+    - image: busybox:1.28
+      name: busty
+      command:
+        - sh
+        - -c
+        - echo "Testing tolerationseconds" && sleep 5000
+  tolerations:
+    - effect: NoExecute
+      key: test
+      tolerationSeconds: 10
+      value: one
