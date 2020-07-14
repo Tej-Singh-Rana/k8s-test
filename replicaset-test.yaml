@@ -27,8 +27,9 @@ spec:
         - image: redis
           name: test-4
       tolerations:
-        - effect: PreferNoSchedule
+        - effect: NoExecute          # When we defining, PreferNoSchedule then tolerationSeconds cannot be assign.
           key: test
-          operator: In
+          operator: Equal
           value: arch
-          tolerationSeconds: 20
+          tolerationSeconds: 20     # It will evict the pod with help of "NoExecute" effect.
+                                    # When we assigning the effect "NoExecute" then "tolerationSeconds" should be present. In other case no need.
