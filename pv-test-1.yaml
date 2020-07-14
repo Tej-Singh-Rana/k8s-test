@@ -4,56 +4,56 @@ items:
   - kind: PersistentVolume
     apiVersion: v1
     metadata:
-      name: pv-4
+     name: pv-4
+    spec:
+     accessModes:
+     - ReadWriteMany
+     capacity:
+      storage: 450Mi
+     volumeMode: Filesystem
+     persistentVolumeReclaimPolicy: Recycle
+     hostPath:
+       path: /tmp/log-4
+       type: DirectoryOrCreate
+  - kind: PersistentVolume
+    apiVersion: v1
+    metadata:
+     name: pv-5
     spec:
       accessModes:
-      - ReadWriteMany
+       - ReadWriteOnce
       capacity:
-        storage: 450Mi
+       storage: 800Mi
       volumeMode: Filesystem
       persistentVolumeReclaimPolicy: Recycle
       hostPath:
-         path: /tmp/log-4
-         type: DirectoryOrCreate
-  -	kind: PersistentVolume
+       path: /tmp/log-5
+       type: DirectoryOrCreate
+  - kind: PersistentVolume
     apiVersion: v1
     metadata:
-       name: pv-5
-    spec:
-       accessModes:
-         - ReadWriteOnce
-       capacity:
-          storage: 800Mi
-       volumeMode: Filesystem
-       persistentVolumeReclaimPolicy: Recycle
-       hostPath:
-          path: /tmp/log-5
-          type: DirectoryOrCreate
-  -	kind: PersistentVolume
-    apiVersion: v1
-    metadata:
-        name: pv-6
+      name: pv-6
     spec:
       accessModes:
-       - ReadOnlyMany
+      - ReadOnlyMany
       capacity:
         storage: 1Gi
       volumeMode: Filesystem
       persistentVolumeReclaimPolicy: Retain
       hostPath:
-         path: /tmp/log-6
-         type: DirectoryOrCreate
-  -	kind: PersistentVolume
+        path: /tmp/log-6
+        type: DirectoryOrCreate
+  - kind: PersistentVolume
     apiVersion: v1
     metadata:
       name: pv-7
     spec:
-      accessModes:
+     accessModes:
       - ReadWriteMany
-      capacity:
-      storage: 750Mi
-      volumeMode: Filesystem
-      persistentVolumeReclaimPolicy: Retain
-      hostPath:
-         path: /tmp/log-7
-         type: DirectoryOrCreate
+     capacity:
+       storage: 750Mi
+     volumeMode: Filesystem
+     persistentVolumeReclaimPolicy: Retain
+     hostPath:
+       path: /tmp/log-7
+       type: DirectoryOrCreate
