@@ -1,0 +1,34 @@
+kind: ReplicaSet
+apiVersion: apps/v1
+metadata:
+  name: test
+  labels:
+    arch: behaviour
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: test
+  template:
+    metadata:
+      name: test
+      labels:
+        app: test
+    spec:
+      containers:
+        - image: nginx
+          name: test-1
+        - image: busybox:1.28
+          name: test-2
+          command: ["sleep","500"]
+        - image: alpine
+          name: test-3
+          command: ["sleeep","5"]
+        - image: redis
+          name: test-4
+      tolerations:
+        - effect: PreferNoSchedule
+          key: test
+          operator: In
+          value: arch
+          tolerationSeconds: 20
