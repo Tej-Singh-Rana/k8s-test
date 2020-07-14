@@ -1,0 +1,15 @@
+kind: Pod
+metadata:
+  name: log-path
+  labels:
+    access: logpath
+apiVersion: v1
+spec:
+  containers:
+    - image: busybox:1.28
+      name: log
+      command:
+        - sh
+        - -c
+        - 'echo "Collected logs of the system, Done. Delete the Pod. Don't inspect it." /dev/termination-logs; exit 1'
+      terminationMessagePath: /dev/termination-logs
