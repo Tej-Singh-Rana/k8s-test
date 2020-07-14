@@ -1,59 +1,59 @@
 kind: List
 apiVersion: v1
 items:
--	kind: PersistentVolume
-	apiVersion: v1
-	metadata:
-		  name: pv-4
-	spec:
-		accessModes:
-		- ReadWriteMany
-		capacity:
-		  storage: 450Mi
-		volumeMode: Filesystem
-		persistentVolumeReclaimPolicy: Recycle
-		hostPath:
-		  path: /tmp/log-4
-		  type: DirectoryOrCreate
--	kind: PersistentVolume
-	apiVersion: v1
-	metadata:
-	    name: pv-5
-	spec:
-	  accessModes:
-	  - ReadWriteOnce
-	  capacity:
-	    storage: 800Mi
-	  volumeMode: Filesystem
-	  persistentVolumeReclaimPolicy: Recycle
-	  hostPath:
-	    path: /tmp/log-5
-	    type: DirectoryOrCreate
--	kind: PersistentVolume
-	apiVersion: v1
-	metadata:
-	    name: pv-6
-	spec:
-	  accessModes:
-	  - ReadOnlyMany
-	  capacity:
-	    storage: 1Gi
-	  volumeMode: Filesystem
-	  persistentVolumeReclaimPolicy: Retain
-	  hostPath:
-     	path: /tmp/log-6
-     	type: DirectoryOrCreate
--	kind: PersistentVolume
-	apiVersion: v1
-	metadata:
-	    name: pv-7
-	spec:
-	  accessModes:
-	  - ReadWriteMany
-	  capacity:
-	    storage: 750Mi
-	  volumeMode: Filesystem
-	  persistentVolumeReclaimPolicy: Retain
-	  hostPath:
-	    path: /tmp/log-7
-	    type: DirectoryOrCreate
+  - kind: PersistentVolume
+    apiVersion: v1
+    metadata:
+      name: pv-4
+    spec:
+      accessModes:
+      - ReadWriteMany
+      capacity:
+        storage: 450Mi
+      volumeMode: Filesystem
+      persistentVolumeReclaimPolicy: Recycle
+      hostPath:
+         path: /tmp/log-4
+         type: DirectoryOrCreate
+  -	kind: PersistentVolume
+    apiVersion: v1
+    metadata:
+       name: pv-5
+    spec:
+       accessModes:
+         - ReadWriteOnce
+       capacity:
+          storage: 800Mi
+       volumeMode: Filesystem
+       persistentVolumeReclaimPolicy: Recycle
+       hostPath:
+          path: /tmp/log-5
+          type: DirectoryOrCreate
+  -	kind: PersistentVolume
+    apiVersion: v1
+    metadata:
+        name: pv-6
+    spec:
+      accessModes:
+       - ReadOnlyMany
+      capacity:
+        storage: 1Gi
+      volumeMode: Filesystem
+      persistentVolumeReclaimPolicy: Retain
+      hostPath:
+         path: /tmp/log-6
+         type: DirectoryOrCreate
+  -	kind: PersistentVolume
+    apiVersion: v1
+    metadata:
+      name: pv-7
+    spec:
+      accessModes:
+      - ReadWriteMany
+      capacity:
+      storage: 750Mi
+      volumeMode: Filesystem
+      persistentVolumeReclaimPolicy: Retain
+      hostPath:
+         path: /tmp/log-7
+         type: DirectoryOrCreate
