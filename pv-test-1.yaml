@@ -43,7 +43,7 @@ items:
 		  hostPath:
 		     path: /tmp/log-6
 		     type: DirectoryOrCreate
-		-	kind: PersistentVolume
+	-	kind: PersistentVolume
 		apiVersion: v1
 		metadata:
 		    name: pv-7
