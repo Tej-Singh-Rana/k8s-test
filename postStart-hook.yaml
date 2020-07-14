@@ -1,0 +1,19 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: hook
+  labels:
+    app: hook
+spec:
+  containers:
+    - image: nginx
+      name: hook
+      env:
+        - name: test
+          value: "postStart hook testing"
+      lifecycle:
+        exec:
+          command:
+            - sh
+            - -c
+            - echo "Hello welcome to $test" > /usr/share/nginx/html/index.html
