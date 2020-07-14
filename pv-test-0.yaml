@@ -1,59 +1,59 @@
 kind: List
 apiVersion: v1
 items:
-	-	kind: PersistentVolume
-		apiVersion: v1
-		metadata:
-		    name: pv-0
-		spec:
-		  accessModes:
-		  - ReadWriteMany
-		  capacity:
-		     storage: 1Gi
-		  volumeMode: Filesystem
-		  persistentVolumeReclaimPolicy: Retain
-		  hostPath:
-		     path: /tmp/log-0
-		     type: DirectoryOrCreate
-	-	kind: PersistentVolume
-		apiVersion: v1
-		metadata:
-		    name: pv-1
-		spec:
-		  accessModes:
-		  - ReadWriteMany
-		  capacity:
-		     storage: 2Gi
-		  volumeMode: Filesystem
-		  persistentVolumeReclaimPolicy: Retain
-		  hostPath:
-		     path: /tmp/log-1
-		     type: DirectoryOrCreate
-	-	kind: PersistentVolume
-		apiVersion: v1
-		metadata:
-		    name: pv-2
-		spec:
-		  accessModes:
-		  - ReadOnlyMany
-		  capacity:
-		     storage: 3Gi
-		  volumeMode: Filesystem
-		  persistentVolumeReclaimPolicy: Retain
-		  hostPath:
-		     path: /tmp/log-2
-		     type: DirectoryOrCreate
-	-	kind: PersistentVolume
-		apiVersion: v1
-		metadata:
-		    name: pv-3
-		spec:
-		  accessModes:
-		  - ReadWriteOnce
-		  capacity:
-		     storage: 750Mi
-		  volumeMode: Filesystem
-		  persistentVolumeReclaimPolicy: Retain
-		  hostPath:
-		     path: /tmp/log-3
-		     type: DirectoryOrCreate
+-	kind: PersistentVolume
+	apiVersion: v1
+	metadata:
+	    name: pv-0
+	spec:
+	  accessModes:
+	  - ReadWriteMany
+	  capacity:
+	    storage: 1Gi
+	  volumeMode: Filesystem
+	  persistentVolumeReclaimPolicy: Retain
+	  hostPath:
+	    path: /tmp/log-0
+	    type: DirectoryOrCreate
+-	kind: PersistentVolume
+	apiVersion: v1
+	metadata:
+	    name: pv-1
+	spec:
+	  accessModes:
+	  - ReadWriteMany
+	  capacity:
+	    storage: 2Gi
+	  volumeMode: Filesystem
+	  persistentVolumeReclaimPolicy: Retain
+	  hostPath:
+	    path: /tmp/log-1
+	    type: DirectoryOrCreate
+-	kind: PersistentVolume
+	apiVersion: v1
+	metadata:
+	    name: pv-2
+	spec:
+	  accessModes:
+	  - ReadOnlyMany
+	  capacity:
+	    storage: 3Gi
+	  volumeMode: Filesystem
+	  persistentVolumeReclaimPolicy: Retain
+	  hostPath:
+	    path: /tmp/log-2
+	    type: DirectoryOrCreate
+-	kind: PersistentVolume
+	apiVersion: v1
+	metadata:
+	    name: pv-3
+	spec:
+	  accessModes:
+	  - ReadWriteOnce
+	  capacity:
+	    storage: 750Mi
+	  volumeMode: Filesystem
+	  persistentVolumeReclaimPolicy: Retain
+	  hostPath:
+	    path: /tmp/log-3
+	    type: DirectoryOrCreate
