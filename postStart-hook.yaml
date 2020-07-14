@@ -11,8 +11,8 @@ spec:
       env:
         - name: test
           value: "postStart hook testing"
-      lifecycle:                # It will not touch main container process and will start immediately when container started.
-        exec:                      
+      lifecycle:             # It will not touch main container process and will start immediately when container started.
+        exec:                # Available: - exec || tcpSocket || httpGet   
           command:
             - sh
             - -c
