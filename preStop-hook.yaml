@@ -1,0 +1,22 @@
+kind: Pod
+metadata:
+  name: prestop
+  labels:
+    hook: prestop
+apiVersion: v1
+spec:
+  containers:
+    - image: busybox
+      name: pretest
+      command:
+        - sh
+        - -c
+        - for i in {1..10}; do echo "Shutdown this application, count down $i"; sleep 2; done; 
+        - exit 0
+      lifecycle:
+        preStop:
+          exec:
+            command:
+              - sh
+              - -c
+              - echo "Wait for 5 seconds to complete live requests." && sleep 5; exit 0
