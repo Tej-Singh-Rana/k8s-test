@@ -17,10 +17,10 @@ spec:
               - cat /etc/hosts | tee -a /usr/share/nginx/html/index.html
   hostAliases:       # Can create a hostalias before container start.
   - ip:              # ip and hostnames will be assign for this process.
-    - 8.8.8.8
+    - "8.8.8.8"      # string format
     hostnames:
-      - google
+    - "google"
   - ip: 
-    - 0.0.0.0
+    - "0.0.0.0"
     hostnames:
-      - welcome
+    - "welcome"
