@@ -1,0 +1,13 @@
+kind: Pod                     # resources
+apiVersion: v1                # api group
+metadata:                     # contain less but important information about Pod
+  name: default-policy
+  labels:                     # useful to detect Pod within cluster
+    policy: default
+spec:
+  containers:
+    - image: bash
+      name: bash-0
+      command: ["/bin/sh","sleep","4500"]
+  dnsPolicy: default         # policy default
+  
