@@ -12,11 +12,11 @@ spec:                             # Pod template begins
   dnsPolicy: None                 # policy type is None.  Others are: ClusterFirst | Default | ClusterFirstWithHostNet
   dnsConfig:                      # In case of policy type: - None, we can set own dnsConfig.
     nameservers:
-      - 8.8.8.8
+      - 8.8.8.8                   # nameserver 8.8.8.8
     searches:
-      - google.com
+      - google.com                # search google.com my.default.dns.com
       - my.default.dns.com
-    options:
+    options:                      # options ndots:3
       - name: ndots
         value: "3"
     # - name: edns0
