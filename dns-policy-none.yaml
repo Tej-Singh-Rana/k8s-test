@@ -1,0 +1,22 @@
+kind: Pod                         # resources
+apiVersion: v1                    # api group
+metadata:                         # contain less but important information about Pod
+  name: nonedns-policy            # Should be unique | case sensitive 
+  labels:                         # useful to detect Pod within cluster
+    policy: none
+spec:                             # Pod template begins
+  containers:                     # pod.spec.containers
+    - image: bash                 # image name 
+      name: bash-1                # container name, if other pods has same container name doesn't effect.
+      command: ["sleep","4500"]   # command to run as a main process. If we use /bin/sh then shell will execute this as main process.
+  dnsPolicy: None                 # policy type is None.  Others are: ClusterFirst | Default | ClusterFirstWithHostNet
+  dnsConfig:                      # In case of policy type: - None, we can set own dnsConfig.
+    nameservers:
+      - 8.8.8.8
+    searches:
+      - google.com
+      - my.default.dns.com
+    options:
+      - name: ndots
+        value: "3"
+    # - name: edns0
