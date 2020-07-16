@@ -9,5 +9,5 @@ spec:
     - image: bash
       name: bash-0
       command: ["/bin/sh","sleep","4500"]
-  dnsPolicy: default         # policy default
+  dnsPolicy: Default         # policy default
   
