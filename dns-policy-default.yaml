@@ -10,4 +10,3 @@ spec:                             # Pod template begins
       name: bash-0                # container name, if other pods has same container name doesn't effect.
       command: ["sleep","4500"]   # command to run as a main process. If we use /bin/sh then shell will execute this process.
   dnsPolicy: Default              # policy type is Default.  Others are: ClusterFirst | None | ClusterFirstWithHostNet
-  
