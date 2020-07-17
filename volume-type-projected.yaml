@@ -1,0 +1,38 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: volpro
+  labels:
+    type: projected
+spec:
+  terminationGracePeriodSeconds: 30
+  activeDeadlineSeconds: 10
+  volumes:
+    - name: nginx
+      projected:
+        sources:
+          configMap:
+          - name: page
+            items:
+                path: data
+                key: config-map
+          secret:
+          - name: seccomp
+            items:
+              path: sec
+              key: secret-map
+          downwardAPI:
+            items:
+              path: pro
+              resourceFieldRef:
+                resource: limits.memory
+                containerName: cold
+          # serviceAccountToken:
+  containers:
+    - image: nginx:alpine
+      name: cold
+      imagePullPolicy: IfNotPresent
+      volumeMounts:
+        - name: nginx
+          mountPath: /usr/share/nginx/html/
+  
