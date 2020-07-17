@@ -12,3 +12,4 @@ spec:                                 # Pod template begins
   dnsPolicy: ClusterFirstWithHostNet              # policy type is Default.  Others are: ClusterFirst | None | Default
   hostNetwork: true                     # Should be true if we defining, dnsPolicy: ClusterFirstWithHostNet
                                         # It takes same entry as in host system have in /etc/hosts
+                                        # Can see all ip addresses, because accessing host network
