@@ -6,7 +6,7 @@ metadata:
     type: projected
 spec:
   terminationGracePeriodSeconds: 30
-  activeDeadlineSeconds: 10
+  activeDeadlineSeconds: 300
   volumes:
     - name: nginx
       projected:
