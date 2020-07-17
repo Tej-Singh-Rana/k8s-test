@@ -11,19 +11,19 @@ spec:
     - name: nginx
       projected:
         sources:
-          configMap:
-          - name: page
+        - configMap:
+            name: page
             items:
-                path: data
+              - path: data
                 key: config-map
-          secret:
-          - name: seccomp
+        - secret:
+            name: seccomp
             items:
-              path: sec
+            - path: sec
               key: secret-map
-          downwardAPI:
+        - downwardAPI:
             items:
-              path: pro
+            - path: pro
               resourceFieldRef:
                 resource: limits.memory
                 containerName: cold
