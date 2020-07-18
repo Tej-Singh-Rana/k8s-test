@@ -1,0 +1,8 @@
+kind: Ingress                                  # Single Service Ingress
+apiVersion: networking.k8s.io/v1beta1          # API Version
+metadata:
+  name: single-service                         # Ingress Resource Name
+spec:
+  backend:                                     # Only defining backend service
+    serviceName: single-service                # Service Name
+    servicePort: 80                            # Service Port
