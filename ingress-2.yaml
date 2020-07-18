@@ -1,0 +1,19 @@
+kind: Ingress
+apiVersion: networking.k8s.io/v1beta1
+metadata:
+  name: multi-route    # Routing traffic from a single IP to more than one service.
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+    - host: food.service.com
+      http:
+        paths:             # Routing traffic to multiple services according to their Paths.
+        - path: /menu    
+          backend:
+            serviceName: menu-service
+            servicePort: 80
+        - path: /book
+          backend:
+            serviceName: book-service
+            servicePort: 8080
