@@ -1,0 +1,26 @@
+kind: Secret
+metadata:
+  name: tls-secret
+apiVersion: v1
+data:
+  tls.cert: <base64 encoded>
+  tls.key: <base64 encoded>
+type: kubernetes.io/tls
+---
+kind: Ingress
+metadata:
+  name: tls-ingress
+apiVersion: networking.k8s.io/v1beta1
+spec:
+  tls:
+    - hosts:
+        - animation.com
+      secretName: tls-secret               # Secret name
+  rules:
+    - host: animation.com
+      http:
+        paths:
+          - path: /                        # Any path 
+            backend:
+              serviceName: animation-service
+              servicePort: 8585
