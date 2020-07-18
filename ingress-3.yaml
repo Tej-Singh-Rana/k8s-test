@@ -1,0 +1,18 @@
+kind: Ingress
+apiVersion: networking.k8s.io/v1beta1
+metadata:
+  name: virtual-host                # Multiple virtual hosts
+spec:
+  rules:
+    - host: food.service.com           # Rule-1
+      http:
+        paths:
+          - backend:
+              serviceName: menu-service
+              servicePort: 80
+    - host: movie.service.com          # Rule-2
+      http:
+        paths:
+          - backend:
+              serviceName: movie-service
+              servicePort: 8080
