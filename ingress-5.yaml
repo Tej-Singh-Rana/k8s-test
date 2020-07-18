@@ -1,0 +1,20 @@
+kind: Ingress
+metadata:
+  name: forward-traffic
+apiVersion: networking.k8s.io/v1beta1                   # Forwarding traffic in single destination
+spec:
+  rules:
+    - host: video.service.com                   # Rule-1
+      http:
+        paths:
+          - path: /video
+            backend:
+              serviceName: video-service
+              servicePort: 80
+    - host: cartoon.service.com                 # Rule-2
+      http:
+        paths:
+          - path: /video
+            backend:
+              serviceName: cartoon-service
+              servicePort: 81
