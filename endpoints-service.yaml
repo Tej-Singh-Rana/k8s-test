@@ -1,0 +1,37 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: external-service               # Must match with endpoint name
+spec:
+  type: ClusterIP    # Optional, By default service assigned ClusterIP
+  ports:
+    - port: 80
+      name: http
+      protocol: TCP
+---
+kind: Endpoints
+apiVersion: v1
+metadata:
+  name: external-service          # Must match with service name
+spec:
+  - addresses:
+    - ip:                         # <pod-ip>
+    - ip:                         # <pod-ip>
+    ports:
+    - port: 80                    # Target port of the endpoints
+      protocol: TCP
+---
+kind: Pod
+apiVersion: v1
+metadata:
+  name: manual-endpoint
+  labels:
+    app: endpoints
+spec:
+  terminationGracePeriodSeconds: 120
+  containers:
+    - image: nginx:alpine
+      name: ninja
+      ports:
+        - containerPort: 80
+          name: http
