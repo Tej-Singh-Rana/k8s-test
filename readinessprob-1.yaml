@@ -10,7 +10,7 @@ spec:
       command:
         - sh
         - -c
-        - touch /tmp/ready && sleep 4500000000000000000000000000;
+        - touch /tmp/ready && sleep 45000000000000;
       name: test-ready
       readinessProbe:           # readinessProbe test, Periodically it will perform this task.
         exec:
