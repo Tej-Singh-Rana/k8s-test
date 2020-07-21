@@ -1,0 +1,33 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: emptydir
+  labels:
+    app: empty
+spec:
+  volumes:
+    - name: spy
+      emptyDir: {}
+  containers:
+    - image: nginx:alpine
+      name: nginx
+      volumeMounts:
+        - name: spy
+          mountPath: /usr/share/nginx/html
+          readOnly: true
+    - image: busybox:1.28
+      name: counter
+      command:
+        - sh
+        - -c
+        - echo "Hello i am from ${POD_NAME}" > /opt/index.html; sleep 450000
+      env:
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+                fieldPath: metadata.name
+      volumeMounts:
+        - name: spy
+          mountPath: /opt/
+          readOnly: true
