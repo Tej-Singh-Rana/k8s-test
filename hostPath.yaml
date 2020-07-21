@@ -1,0 +1,22 @@
+kind: Pod
+metadata:
+  name: hostpath
+  labels:
+    path: host
+apiVersion: v1
+spec:
+  volumes:
+    - name: critical
+      hostPath:
+        path: /opt/data
+        type: DirectoryOrCreate
+  containers:
+    - name: critical
+      image: nginx
+      ports:
+        - containerPort: 80
+          name: http
+      volumeMounts:
+        - name: critical
+          mountPath: /usr/share/nginx/html/
+          
