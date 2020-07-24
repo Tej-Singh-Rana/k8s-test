@@ -341,4 +341,27 @@ $ cd /root/go/bin/
 
 $ kubetest --test --provider=skeleton --extract=v1.18.0 --test_args=--ginkgo.focus="\[Conformance\]" --timeout=10m > quick_testresult 
 ```
+### Generate Token through kubeadm command
+
+- Token Generate 
+```
+$ kubeadm token generate
+
+O/P :-
+  
+  1fipm7.0vw539991wu62ibh
+```
+- Token create
+```
+$ kubeadm token create 1fipm7.0vw539991wu62ibh(token-name) --ttl 20h --print-join-command
+```
+> Note: - It's valid for next 20h.
+
+- Token list
+```
+$ kubeadm token list
+
+O/P: -
+   f1hi6h.ndq672735msivavx   8d          2020-07-31T11:12:24Z   authentication,signing  <none>system:bootstrappers:kubeadm:default-node-token
+```
 
