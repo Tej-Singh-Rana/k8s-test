@@ -1,0 +1,50 @@
+---
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: xavier-pv
+spec:
+  accessModes: ["ReadWriteOnce"]
+  capacity:
+    storage: 2Gi
+  hostPath:
+    path: /mnt/data
+    type: DirectoryOrCreate
+  persistentVolumeReclaimPolicy: Retain
+  volumeMode: Filesystem
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: xavier-pvc
+spec:
+  accessModes: ["ReadWriteOnce"]
+  resources:
+    requests:
+      storage: 1Gi
+  volumeMode: Filesystem
+---
+kind: Pod
+metadata:
+  name: xavier-pod
+  labels:
+    xavier: home
+apiVersion: v1
+spec:
+  volumes:
+    - name: data
+      persistentVolumeClaim:
+        claimName: xavier-pvc
+  containers:
+    - image: nginx
+      name: xavier
+      # lifecycle:
+      #   postStart:
+      #     exec:
+      #       command:
+      #         - sh
+      #         - -c
+      #         - touch /usr/share/nginx/html/index.html && echo "Hello Kubernetes folks" > /usr/share/nginx/html/index.html
+      volumeMounts:
+        - name: data
+          mountPath: /usr/share/nginx/html
