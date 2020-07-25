@@ -365,3 +365,88 @@ O/P: -
    f1hi6h.ndq672735msivavx   8d          2020-07-31T11:12:24Z   authentication,signing  <none>system:bootstrappers:kubeadm:default-node-token
 ```
 
+### Initializing Master Node
+
+- Details of Resources:
+  * Kubeadm: 1.18.0
+  * Ubuntu:  18.04.4 LTS (Bionic Beaver)
+  * Docker:  19.03.6
+
+- Generating token
+```
+master $ kubeadm generate token
+
+O/P: 5bf6si.k4kr89dox7e24x2k
+``` 
+
+- Initializing the cluster with the generated token
+```
+master $ kubeadm init --token=5bf6si.k4kr89dox7e24x2k --pod-network-cidr=10.244.0.0/16 --apiserver-bind-port=6443 --apiserver-advertise-address=172.17.0.18 --kubernetes-version=$(kubeadm version -o short)
+``` 
+# Note: It will take version as per kubeadm version. 
+
+- To manage the kubernetes cluster, the client configurations and certificates required. This configuration is created when kubeadm initialises the cluster.
+```
+master $ sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+
+master $ sudo chown $(id -u):$(id -g) $HOME/.kube/config
+
+master $ export KUBECONFIG=$HOME/.kube/config
+```
+- Deploy network plugins as per your requirements. [Network Addons](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/#pod-network)
+
+- List of kube-system pods
+```
+master $ kubectl get pods -n kube-system
+```
+- Once the Master and CNI has initialised. Nodes and kube-system Pods are up and running, then the Worker nodes can join Master node. Token history managed by `kubeadm token`. 
+```
+master $ kubeadm token list 
+
+master $ kubeadm token --help
+```
+
+- To run the following command to join the cluster and also provide the ip address of the Master node.
+```
+master $ kubeadm join --discovery-token-unsafe-skip-ca-verification --token=5bf6si.k4kr89dox7e24x2k 172.17.0.18:6443
+
+Options: -
+--discovery-token-unsafe-skip-ca-verification -- For token-based discovery, allow joining without --discovery-token-ca-cert-hash pinning. Over all bypass the discovery token verification.
+```
+
+- View the nodes, after joining the worker nodes.
+```
+master $ kubectl get nodes
+```
+
+- Create a deployment and view the pods and deployments.
+```
+master $ kubectl create deployment nginx --image=nginx:1.17
+
+master $ kubectl get deployments
+
+master $ kubectl get pods
+```
+- Pause Containers:- 
+    The Pause container is responsible for defining the network for the Pod. Other containers in the pod share the same network namespace. This improves network performance and allow multiple containers to communicate over the same network interface.
+      When we are exposing port for the Pod, Ports are exposed on the Pod, not for the nginx containers itself.
+
+```
+master $ kubectl run nginx --image=nginx --port 80
+
+master $ kubectl expose po nginx --name nginx --port 80 --type NodePort
+
+worker $ docker ps | grep nginx
+
+```
+
+
+
+
+
+
+
+
+
+
+
