@@ -11,7 +11,7 @@ spec:
     - port: 80
       targetPort: 80
   externalIPs:
-    - 172.17.0.12            # Node IP
+    - 172.17.0.12            # Node IP || change according to yours
   type: NodePort
   selector: 
     name: external
