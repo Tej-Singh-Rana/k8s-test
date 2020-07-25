@@ -1,0 +1,20 @@
+# Burstable pod, No matches of requests and limits.
+
+---
+kind: Pod
+apiVersion: v1
+metadata:
+  name: burstable
+  labels:
+    class: burstable
+spec:
+  containers:
+    - image: memcached
+      name: burst
+      resources:
+        limits:
+          cpu: 450Mi
+          memory: 1Gi
+        requests:
+          cpu: 300Mi
+          memory: 800Mi
