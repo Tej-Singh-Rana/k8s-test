@@ -11,6 +11,7 @@ apiVersion: v1
 spec:
   containers:
     - image: memcached
+      name: memcache
       resources:
         limits:
           memory: 450Mi
