@@ -1,0 +1,47 @@
+# In the Service, we defining external ip. It will forward traffic to that node also.
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: external
+  labels:
+    name: external
+spec:
+  ports:
+    - port: 80
+      targetPort: 80
+  externalIPs:
+    - 172.17.0.12            # Node IP
+  type: NodePort
+  selector: 
+    name: external
+---
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: traefik
+  labels:
+    name: traefik
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      code: blue
+  template:
+    metadata:
+      labels:
+        code: blue
+    spec:
+      containers:
+        - image: nginx:alpine
+          name: immortal
+          lifecycle:
+            postStart:
+              exec:
+                command:
+                  - sh
+                  - -c
+                  - echo "Successfully Done!! ExternalIPs task" > /usr/share/nginx/html/index.html
+          ports:
+            - containerPort: 80
+              name: http
