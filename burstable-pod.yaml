@@ -13,8 +13,8 @@ spec:
       name: burst
       resources:
         limits:
-          cpu: 450Mi
+          cpu: 0.5
           memory: 1Gi
         requests:
-          cpu: 300Mi
+          cpu: 0.3
           memory: 800Mi
