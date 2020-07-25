@@ -1,0 +1,20 @@
+# Guaranteed pod, cpu && memory limits and requests matches the same comes under the Quaranteed Class.
+# If you assign limits for a Pod and not specify requests for the Pod, then kubernetes will automatically assign requests as limits.
+
+---
+kind: Pod
+metadata:
+  name: class-one
+  labels:
+    qos: quaranteed
+apiVersion: v1
+spec:
+  containers:
+    - image: memcached
+      resources:
+        limits:
+          memory: 450Mi
+          cpu: 0.5
+        requests:
+          memory: 450Mi
+          cpu: 0.5
