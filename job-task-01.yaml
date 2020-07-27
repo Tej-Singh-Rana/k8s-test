@@ -5,7 +5,7 @@ metadata:
   name: busy
 spec:
   activeDeadlineSeconds: 30     # duration of the job, has to perform specified task
-  backofflimit: 10              # max retries before marking this job as failed
+  backoffLimit: 10              # max retries before marking this job as failed
   completions: 10               # Will create 10 pods to perform job
   parallelism: 2                # parallel creates 2 2 each pod
   template:                     # No required to create a labels or selector because job creates own selector and set labels in the PodTemplate. 
