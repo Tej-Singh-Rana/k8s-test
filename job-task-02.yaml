@@ -6,7 +6,7 @@ metadata:
 apiVersion: batch/v1
 spec:
   ttlSecondsAfterFinished: 10
-  parallel: 1
+  parallelism: 1
   selector:
     matchLabels:
       clock: round
@@ -32,6 +32,7 @@ spec:
           - touch /opt/file;
           - echo "Task is only to print message and deleted automatically." | tee -a /opt/file
           image: alpine
+          name: ola
           volumeMounts:
             - name: data
               mountPath: /opt/
