@@ -10,6 +10,7 @@ spec:
   selector:
     matchLabels:
       clock: round
+      clock: block
     matchExpressions:
       - key: clock
         operator: In
@@ -22,6 +23,7 @@ spec:
         clock: round
         clock: block
     spec:
+      restartPolicy: Never
       volumes:
         - name: data
           hostPath:
