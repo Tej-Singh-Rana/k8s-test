@@ -6,7 +6,8 @@ metadata:
 apiVersion: batch/v1
 spec:
   ttlSecondsAfterFinished: 10
-  parallelism: 1
+  parallelism: 1               # In parallel of 1 pod each
+  completions: 75              # 75 times will run
   manualSelector: true
   selector:
     matchLabels:
@@ -32,7 +33,7 @@ spec:
       containers:
         - command: ["/bin/sh","-c"]
           args: 
-          - touch /opt/file && echo "Task is only to print message and deleted automatically." | tee -a /opt/file
+          - touch /opt/file && echo "Task is only to print message time $(date +%T) and deleted automatically." | tee -a /opt/file
           image: alpine
           name: ola
           volumeMounts:
