@@ -7,14 +7,15 @@ apiVersion: batch/v1
 spec:
   ttlSecondsAfterFinished: 10
   parallelism: 1
+  manualSelector: true
   selector:
     matchLabels:
       clock: round
       clock: block
-    # matchExpressions:
-    #   - key: clock
-    #     operator: In
-    #     values: ["round","block"]
+    matchExpressions:
+      - key: clock
+        operator: In
+        values: ["round","block"]
   activeDeadlineSeconds: 30    
   template:
     metadata:
@@ -31,8 +32,7 @@ spec:
       containers:
         - command: ["/bin/sh","-c"]
           args: 
-          - touch /opt/file;
-          - echo "Task is only to print message and deleted automatically." | tee -a /opt/file
+          - touch /opt/file && echo "Task is only to print message and deleted automatically." | tee -a /opt/file
           image: alpine
           name: ola
           volumeMounts:
