@@ -11,10 +11,10 @@ spec:
     matchLabels:
       clock: round
       clock: block
-    matchExpressions:
-      - key: clock
-        operator: In
-        values: ["round","block"]
+    # matchExpressions:
+    #   - key: clock
+    #     operator: In
+    #     values: ["round","block"]
   activeDeadlineSeconds: 30    
   template:
     metadata:
