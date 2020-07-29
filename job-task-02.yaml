@@ -17,7 +17,7 @@ spec:
       - key: clock
         operator: In
         values: ["round","block"]
-  activeDeadlineSeconds: 30    
+  activeDeadlineSeconds: 20    
   template:
     metadata:
       name: task02
