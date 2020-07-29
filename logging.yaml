@@ -1,0 +1,28 @@
+kind: ServiceAccount
+metadata:
+  name: temporary
+apiVersion: v1
+imagePullSecrets:
+  name: login
+---
+kind: Pod
+metadata:
+  name: frozen
+  labels:
+    code: fronzen
+apiVersion: v1
+spec:
+  activeDeadlineSeconds: 10
+  hostNetwork: true
+  serviceAccountName: temporary
+  serviceAccount: temporary
+  terminationGracePeriodSeconds: 15
+  shareProcessNamespace: true
+  containers:
+    - image: nginx:alpine
+      name: nagios
+      ports:
+        - containerPort: 80
+    - image: redis
+      name: ninja
+      # Run in default port
