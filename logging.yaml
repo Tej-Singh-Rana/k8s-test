@@ -3,7 +3,7 @@ metadata:
   name: temporary
 apiVersion: v1
 imagePullSecrets:
-  name: login
+- name: login
 ---
 kind: Pod
 metadata:
@@ -12,7 +12,7 @@ metadata:
     code: fronzen
 apiVersion: v1
 spec:
-  activeDeadlineSeconds: 10
+  activeDeadlineSeconds: 60        # To container up and running before dead line exceeded
   hostNetwork: true
   serviceAccountName: temporary
   serviceAccount: temporary
