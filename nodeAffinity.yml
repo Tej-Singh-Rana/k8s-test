@@ -13,16 +13,18 @@ spec:
     metadata:
       labels:
         run: redis
-  spec:
-    affinity:
-      nodeAffinity:
-        requiredDuringSchedulingIgnoredDuringExecution:
-          nodeSelectorTerms:
+    spec:
+      tolerations:                         # Schedule Pod on Master Node, without override Taints
+        - key: node-role.kubernetes.io/master
+          operator: Exists
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
             - matchExpressions:
-              - key: group
+              - key: group                   # Add this label to one of the Node "kubectl label node node-name group=A"
                 operator: In
                 values: ["A"]
-    containers:
+      containers:
       - name: redis-container
         image: redis
-        
