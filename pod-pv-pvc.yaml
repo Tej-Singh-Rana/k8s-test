@@ -1,0 +1,45 @@
+---
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: pv-datacenter
+  labels:
+    type: local
+spec:
+  accessModes: ["ReadWriteOnce"]
+  capacity:
+    storage: 9Gi
+  storageClassName: manual
+  hostPath:
+    path: "/mnt/finance"
+
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: pvc-datacenter
+spec:
+  accessModes: ["ReadWriteOnce"]
+  resources:
+    requests:
+      storage: 3Gi
+  storageClassName: manual
+
+---
+kind: Pod
+apiVersion: v1
+metadata:
+  name: pod-datacenter
+spec:
+  volumes:
+    - name: storage-datacenter
+      persistentVolumeClaim:
+        claimName: pvc-datacenter
+  containers:
+    - name: container-datacenter
+      image: httpd:latest
+      ports:
+        - containerPort: 80
+      volumeMounts:
+        - name: storage-datacenter
+          mountPath: "/var/www/html"
