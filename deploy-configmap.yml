@@ -20,6 +20,11 @@ spec:
       labels:
         app: redis
     spec:
+      nodeName: controlplane
+      tolerations:
+        - key: node-role.kubernetes.io/master
+          effect: NoSchedule
+          oeprator: Exists
       volumes:
         - name: data
           emptyDir: {}
