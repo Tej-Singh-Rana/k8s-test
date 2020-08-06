@@ -1,0 +1,28 @@
+kind: Pod
+metadata:
+  name: volume-share-devops
+apiVersion: v1
+spec:
+  volumes:
+  - name: volume-share
+    emptyDir: {}
+  containers:
+  - name: volume-container-devops-1
+    image: fedora:latest
+    command: ['/bin/bash','-c','sleep 10000']
+    volumeMounts:
+    - name: volume-share
+      mountPath: /tmp/ecommerce
+      lifecycle:
+        postStart:
+          exec:
+            command:
+              - '/bin/bash'
+              - '-c'
+              - echo "Hello volume-container-devops-1" > /tmp/ecommerce/devops.txt
+  - name: volume-container-devops-2
+    image: fedora:latest
+    command: ['/bin/bash','-c','sleep 10000']
+    volumeMounts:
+    - name: volume-share
+      mountPath: /tmp/apps
