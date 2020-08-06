@@ -24,13 +24,13 @@ spec:
       tolerations:
         - key: node-role.kubernetes.io/master
           effect: NoSchedule
-          oeprator: Exists
+          operator: Exists
       volumes:
         - name: data
           emptyDir: {}
         - name: redis-config
           configMap:
-            - name: redis-config
+              name: redis-config
               items:
                 - key: maxmemory
                   path: redis-master
