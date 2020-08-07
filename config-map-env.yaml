@@ -1,0 +1,19 @@
+kind: Pod
+metadata:
+  name: carlos
+apiVersion: v1
+spec:
+  containers:
+    - image: nginx
+      name: bato
+      env:
+        - name: APP_COLOR
+          valueFrom:
+            configMapKeyRef:
+                name: app-config
+                key: app_color
+        - name: APP_TYPE
+          valueFrom:
+            configMapKeyRef:
+                name: app-config
+                key: app_type
