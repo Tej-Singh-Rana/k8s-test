@@ -1,0 +1,13 @@
+kind: PersistentVolume
+metadata:
+  name: pv-storage
+  labels:
+    storage: pv-storage
+apiVersion: v1
+spec:
+  accessModes: ["ReadWriteOnce"]
+  capacity:
+    storage: 5Gi
+  hostPath:
+    path: /tmp/data-storage
+    type: DirectoryOrCreate
