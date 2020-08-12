@@ -1,0 +1,45 @@
+---
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: pv-xfusion
+  labels:
+    type: local
+spec:
+  accessModes: ["ReadWriteOnce"]
+  capacity:
+    storage: 9Gi
+  storageClassName: manual
+  hostPath:
+    path: "/mnt/devops"
+
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: pvc-xfusion
+spec:
+  accessModes: ["ReadWriteOnce"]
+  resources:
+    requests:
+      storage: 5Gi
+  storageClassName: manual
+
+---
+kind: Pod
+apiVersion: v1
+metadata:
+  name: pod-xfusion
+spec:
+  volumes:
+    - name: storage-xfusion
+      persistentVolumeClaim:
+        claimName: pvc-xfusion
+  containers:
+    - name: container-xfusion
+      image: nginx:latest
+      ports:
+        - containerPort: 80
+      volumeMounts:
+        - name: storage-xfusion
+          mountPath: "/usr/share/nginx/html"
