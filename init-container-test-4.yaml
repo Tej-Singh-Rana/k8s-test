@@ -1,0 +1,33 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: ic-deploy-datacenter
+  labels:
+    app: ic-datacenter
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ic-datacenter
+  template:
+    metadata:
+      labels:
+        app: ic-datacenter
+    spec:
+      volumes:
+        - name: ic-volume-datacenter
+          emptyDir: {}
+      containers:
+        - name: ic-main-datacenter
+          image: ubuntu:latest
+          command: ['/bin/bash', '-c', 'while true; do cat /ic/ecommerce; sleep 5; done']
+          volumeMounts:
+            - name: ic-volume-datacenter
+              mountPath: /ic
+      initContainers:
+        - name: ic-msg-datacenter
+          image: ubuntu:latest
+          command: ['/bin/bash', '-c','echo Init Done - Welcome to xFusionCorp Industries > /ic/ecommerce']
+          volumeMounts:
+            - name: ic-volume-datacenter
+              mountPath: /ic
