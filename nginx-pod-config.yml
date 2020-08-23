@@ -1,0 +1,63 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+    name: nginx-config
+data:
+    nginx.conf: |
+user  nginx;
+worker_processes  1;
+
+pid        /var/run/nginx.pid;
+events {
+    worker_connections  1024;
+}
+
+http {
+    include       /etc/nginx/mime.types;
+    default_type  application/octet-stream;
+    log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
+                      '$status $body_bytes_sent "$http_referer" '
+                      '"$http_user_agent" "$http_x_forwarded_for"';
+    access_log  /var/log/nginx/access.log  main;
+    sendfile        on;
+    keepalive_timeout  65;
+}
+
+server {
+    listen  8092;
+
+    server_name  _;
+
+    location / {
+        root   /var/www/html;
+        index  index.html index.htm index.php;
+    }
+}
+
+---
+kind: Pod
+apiVersion: v1
+metadata:
+    name: nginx-php
+spec:
+    volumes:
+    - name: shared-files
+      emptyDir: {}
+    - name: nginx-config
+      configMap:
+        name: nginx-config
+
+    containers:
+        - name: nginx-container
+          image: nginx:latest
+          volumeMounts:
+            - name: shared-files
+              mountPath: /var/www/html
+            - name: nginx-config
+              mountPath: /etc/nginx/nginx.conf
+              subPath: nginx.conf
+        - name: php-container
+          image: php:7.0-fpm
+          volumeMounts:
+            - name: shared-files
+              mountPath: /var/www/html
