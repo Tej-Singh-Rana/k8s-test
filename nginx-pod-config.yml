@@ -22,6 +22,7 @@ data:
             sendfile        on;
             keepalive_timeout  65;
         }
+      {
 
       server {
             listen  8092;
@@ -33,6 +34,7 @@ data:
                 index  index.html index.htm index.php;
             }
         }
+      }
 
 ---
 kind: Pod
