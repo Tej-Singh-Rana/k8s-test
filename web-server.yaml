@@ -1,0 +1,41 @@
+kind: Namespace
+metadata:
+  name: httpd-namespace-devops
+apiVersion: v1
+
+---
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: httpd-deployment-devops
+  namespace: httpd-namespace-devops
+  labels:
+     app: httpd_app_devops
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: httpd_app_devops
+  template:
+    metadata:
+      labels:
+        app: httpd_app_devops
+    spec:
+      containers:
+        - name: httpd-container-devops
+          image: httpd:latest
+
+---
+kind: Service
+metadata:
+  name: httpd-service-devops
+  namespace: httpd-namespace-devops
+apiVersion: v1
+spec:
+  type: NodePort
+  ports:
+  - port: 80
+    targetPort: 80
+    nodePort: 30004
+  selector:
+    app: httpd_app_devops
