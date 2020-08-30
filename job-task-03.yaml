@@ -1,0 +1,14 @@
+kind: Job
+apiVersion: batch/v1
+metadata:
+  name: countdown-xfusion
+spec:
+  template:
+    metadata:
+      name: countdown-xfusion
+    spec:
+      containers:
+        - name:  container-countdown-xfusion
+          image: fedora:latest
+          command: ["/bin/sh", "-c", "for i in ten nine eight seven six five four three two one ; do echo $i ; done"]
+      restartPolicy: Never
