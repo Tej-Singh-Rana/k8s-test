@@ -1,0 +1,16 @@
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    app: app
+  name: app
+spec:
+  ports:
+  - name: "http"
+    port: 4000
+    protocol: TCP
+    targetPort: 4000
+    nodePort: 32500
+  selector:
+    app: test
+  type: NodePort

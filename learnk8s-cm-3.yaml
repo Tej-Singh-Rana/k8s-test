@@ -1,0 +1,7 @@
+apiVersion: v1
+data:
+  name: tej
+kind: ConfigMap
+metadata:
+  creationTimestamp: null
+  name: test
