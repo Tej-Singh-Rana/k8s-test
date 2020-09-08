@@ -1,0 +1,17 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: devops
+  labels:
+    run: cross
+spec:
+  schedule: "*/4 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+            containers:
+            - image: nginx:latest
+              name: cron-devops
+              command: ["echo Welcome to xfusioncorp"]
+            restartPolicy: OnFailure
