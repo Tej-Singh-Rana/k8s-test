@@ -1,9 +1,11 @@
 # Backend
 ---
-apiVersion: Deployment
-kind: apps/v1
+apiVersion: apps/v1
+kind: Deployment
 metadata:
   name: redis-master
+  labels:
+    app: redis-master
 spec:
   replicas: 1
   selector:
@@ -37,10 +39,13 @@ spec:
     app: redis-master
 
 ---
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: redis-slave
+  labels:
+    app: redis-slave
 spec:
   replicas: 2
   selector:
@@ -48,13 +53,14 @@ spec:
       app: redis-slave
   template:
     metadata:
-      app: redis-slave
+      labels:
+        app: redis-slave
     spec:
       containers:
         - name: slave-redis-nautilus
           image: gcr.io/google_samples/gb-redisslave:v3
           ports:
-            - name: 6379
+            - containerPort: 6379
           resources:
             requests:
               cpu: 100m
@@ -71,28 +77,7 @@ metadata:
 spec:
   ports:
   - port: 6379
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  selector:
+    app: redis-slave
 
 
