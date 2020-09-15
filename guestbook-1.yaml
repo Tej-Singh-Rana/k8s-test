@@ -1,0 +1,98 @@
+# Backend
+---
+apiVersion: Deployment
+kind: apps/v1
+metadata:
+  name: redis-master
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: redis-master
+  template:
+    metadata:
+      labels:
+        app: redis-master
+    spec:
+      containers:
+        - name: master-redis-nautilus
+          image: redis
+          ports:
+            - containerPort: 6379
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: redis-master
+spec:
+  ports:
+    - port: 6379
+      targetPort: 6379
+  selector:
+    app: redis-master
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis-slave
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: redis-slave
+  template:
+    metadata:
+      app: redis-slave
+    spec:
+      containers:
+        - name: slave-redis-nautilus
+          image: gcr.io/google_samples/gb-redisslave:v3
+          ports:
+            - name: 6379
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
+          env:
+            - name: GET_HOSTS_FROM
+              value: dns
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: redis-slave
+spec:
+  ports:
+  - port: 6379
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
