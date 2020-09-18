@@ -1,0 +1,47 @@
+---
+kind: Namespace
+apiVersion: v1
+metadata:
+  name: virtual
+
+---
+kind: Pod
+apiVersion: v1
+metadata:
+  name: pod-1
+  namespace: virtual
+spec:
+  containers:
+    - name: pod-1
+      image: nginx
+
+---
+kind: Pod
+apiVersion: v1
+metadata:
+  name: pod-2
+  namespace: virtual
+spec:
+  containers:
+    - name: pod-2
+      image: nginx:alpine
+---
+kind: Pod
+apiVersion: v1
+metadata:
+  name: pod-3
+  namespace: virtual
+spec:
+  containers:
+    - name: pod-3
+      image: nginx
+---
+kind: Pod
+apiVersion: v1
+metadata:
+  name: pod-4
+  namespace: virtual
+spec:
+  containers:
+    - name: pod-4
+      image: nginx:alpine
