@@ -1,0 +1,37 @@
+---
+kind: Namespace
+apiVersion: v1
+metadata:
+  name: jenkins-world
+
+---
+kind: Pod
+apiVersion: v1
+metadata:
+  name: jenkins
+  namespace: jenkins-world
+  labels:
+    app: jenkins
+    virtual: world
+    core: support
+    version: latest
+spec:
+  containers:
+  - name: jenkins
+    image: jenkins:latest
+    volumeMounts:
+    - name: tmp
+      mountPath: /var/jenkins_home
+    env:
+    - name: JENKINS_VERSION
+      valueFrom:
+        fieldRef:
+          fieldPath: metadata.labels['version']
+    - name: NAMESPACE
+      valueFrom:
+        fieldRef:
+          fieldPath: metadata.namespace
+  volumes:
+  - name: tmp
+    emptyDir:
+      medium: "Memory"
