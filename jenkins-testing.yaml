@@ -23,12 +23,23 @@ metadata:
   labels:
     app: jenkins
 spec:
+  volumes:
+    - name: data
+      emptyDir: {}
+      memory:
+        medium: Memory
+        sizeLimit: 1.5Gi
   containers:
     - name: jenkins
       image: jenkins
       ports:
         - containerPort: 8080
+          name: test-1
         - containerPort: 50000
+          name: test-2
       securityContext:
         runAsUser: 1000
         runAsGroup: 1000
+      volumeMounts:
+        - name: data
+          mountPath: /var/jenkins_home/
