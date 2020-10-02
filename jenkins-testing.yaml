@@ -6,10 +6,12 @@ metadata:
 spec:
   type: NodePort
   ports:
-    - port: 8080
+    - name: test-1
+      port: 8080
       targetPort: 8080
       nodePort: 32500
-    - port: 50000
+    - name: test-2
+      port: 50000
       targetPort: 50000
       nodePort: 31500
   selector:
@@ -25,13 +27,13 @@ metadata:
 spec:
   volumes:
     - name: data
-      emptyDir: {}
-      memory:
+      emptyDir:
         medium: Memory
         sizeLimit: 1.5Gi
   containers:
     - name: jenkins
       image: jenkins
+      workingDir: /var/jenkins_home
       ports:
         - containerPort: 8080
           name: test-1
