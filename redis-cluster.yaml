@@ -1,0 +1,138 @@
+---
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+   name: redis-pv-01
+spec:
+  accessModes: ["ReadWriteOnce"]
+  capacity:
+     storage: 1Gi
+  hostPath:
+    path: /redis01
+    type: DirectoryOrCreate
+---
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: redis-pv-02
+spec:
+  accessModes: ["ReadWriteOnce"]
+  capacity:
+     storage: 1Gi
+  hostPath:
+    path: /redis02
+    type: DirectoryOrCreate
+---
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+   name: redis-pv-03
+spec:
+  accessModes: ["ReadWriteOnce"]
+  capacity:
+     storage: 1Gi
+  hostPath:
+    path: /redis03
+    type: DirectoryOrCreate
+---
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+   name: redis-pv-04
+spec:
+  accessModes: ["ReadWriteOnce"]
+  capacity:
+     storage: 1Gi
+  hostPath:
+    path: /redis04
+    type: DirectoryOrCreate
+---
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+   name: redis-pv-05
+spec:
+  accessModes: ["ReadWriteOnce"]
+  capacity:
+     storage: 1Gi
+  hostPath:
+    path: /redis05
+    type: DirectoryOrCreate
+---
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+   name: redis-pv-06
+spec:
+  accessModes: ["ReadWriteOnce"]
+  capacity:
+     storage: 1Gi
+  hostPath:
+    path: /redis06
+    type: DirectoryOrCreate
+
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: redis-cluster-service
+spec:
+  type: ClusterIP
+  ports:
+    - name: client
+      port: 6379
+      targetPort: 6379
+    - name: gossip
+      port: 16379
+      targetPort: 16379
+---
+kind: StatefulSet
+apiVersion: apps/v1
+metadata:
+  name: redis-cluster
+spec:
+  serviceName: redis-cluster-service
+  replicas: 6
+  selector:
+    matchLabels:
+      app: redis-cluster
+  template:
+    metadata:
+      labels:
+        app: redis-cluster
+    spec:
+      containers:
+        - name: redis-container
+          image: redis:5.0.1-alpine
+          command: ["/conf/update-node.sh", "redis-server", "/conf/redis.conf"]
+          env:
+            - name: POD_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.podIP
+                  apiVersion: v1
+          ports:
+            - containerPort: 6379
+              name: client
+            - containerPort: 16379
+              name: gossip
+          volumeMounts:
+            - name: conf
+              mountPath: /conf
+              readOnly: false
+            - name: data
+              mountPath: /data
+              readOnly: false
+      volumes:
+      - name: conf
+        configMap:
+          name: redis-cluster-configmap
+          defaultMode: 0755
+  volumeClaimTemplates:
+  - metadata:
+      name: data
+    spec:
+      accessModes: ["ReadWriteOnce"]
+      resources:
+        requests: 1Gi 
+
