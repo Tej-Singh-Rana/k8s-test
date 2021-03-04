@@ -1,0 +1,17 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  creationTimestamp: null
+  name: job-test
+spec:
+  # completions: 60    # Unset completions 
+  parallelism: 20      # Set non negative integer number
+  template:
+    metadata:
+    spec:
+      containers:
+      - image: busybox:1.28
+        name: job-test
+        command: ["/bin/sh" , "-c"]
+        args: ["echo no limit ; sleep 2"]
+      restartPolicy: Never
