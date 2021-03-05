@@ -1,0 +1,17 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: job-run
+spec:
+  completions: 10    # Set completions 
+  parallelism: 5     
+  template:
+    metadata:
+    spec:
+      containers:
+      - image: busybox:1.28
+        name: job-run
+        command: ["/bin/sh" , "-c"]
+        args: ["echo limitless"]
+      restartPolicy: Never
+      
