@@ -1,0 +1,75 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: jekyll-namespace-xfusion
+  
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: jekyll-site-xfusion
+  namespace: jekyll-namespace-xfusion
+spec:
+  volumeName: jekyll-site-xfusion
+  storageClassName: ""
+  resources:
+    requests:
+      storage: 1Gi
+  accessModes:
+   - ReadWriteMany
+   
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    run: jekyll-pod-xfusion
+  name: jekyll-pod-xfusion
+  namespace: jekyll-namespace-xfusion
+spec:
+  volumes:
+   - name: site
+     persistentVolumeClaim: 
+      claimName: jekyll-site-xfusion
+  initContainers:
+  - image: kodekloud/jekyll
+    name: jekyll-init-xfusion
+    resources: {}
+    command: [ "jekyll", "new", "/site" ]
+    imagePullPolicy: IfNotPresent
+    volumeMounts:
+    - name: site
+      mountPath: /site 
+  containers:
+   - name: jekyll-container-xfusion
+     image: kodekloud/jekyll-serve
+     volumeMounts: 
+     - name: site
+       mountPath: /site
+  dnsPolicy: ClusterFirst
+  restartPolicy: Always
+status: {}
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: jekyll-service-xfusion
+  name: jekyll-service-xfusion
+  namespace: jekyll-namespace-xfusion
+spec:
+  ports:
+  - name: 8080-4000
+    port: 8080
+    protocol: TCP
+    targetPort: 4000
+    nodePort: 31181
+  selector:
+     run: jekyll-pod-xfusion
+  type: NodePort
+status:
+  loadBalancer: {}
+  
+  
