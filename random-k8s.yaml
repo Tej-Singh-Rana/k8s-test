@@ -1,0 +1,213 @@
+# Manifest file for ques 2
+cat << EOF > /tmp/essports-wl02.yaml
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: essports-wl02
+  name: essports-wl02
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: essports-wl02
+  template:
+    metadata:
+      labels:
+        app: essports-wl02
+    spec:
+      containers:
+      - image: nginx:alpine
+        name: nginx
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: essports-svc
+  name: essports-svc
+spec:
+  ports:
+  - name: 80-32767
+    port: 80
+    protocol: TCP
+    targetPort: 80
+    nodePort: 32750
+  selector:
+    app: essports-wl02
+  type: NodePort
+
+EOF
+
+cat << EOF > /root/app-wl03/app-wl03.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: app-wl03
+spec:
+  containers:
+  - name: monitor-tool
+    image: ubuntu
+    args:
+    - "sleep"
+    - "5000"
+    resources:
+      requests:
+        memory: 1Gi
+      limits:
+        memory: 100Mi
+
+EOF
+
+# Manifest file for ques 4
+
+cat << EOF > /tmp/frontend-wl04.yaml
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: frontend-wl04
+  name: frontend-wl04
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: frontend-wl04
+  template:
+    metadata:
+      labels:
+        app: frontend-wl04
+    spec:
+      containers:
+      - image: kodekloud/webapp-color:v1
+        name: simple-webapp
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: frontend-wl04-svc
+  name: frontend-wl04-svc
+spec:
+  ports:
+  - name: 8080-8080
+    port: 8080
+    protocol: TCP
+    targetPort: 8080
+    nodePort: 30080
+  selector:
+    app: frontend-wl04
+  type: NodePort
+
+EOF
+
+
+# Manifest file for ques 5
+
+cat << EOF > /tmp/webapp-pod-wl05.yaml 
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: canara-wl05
+
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    run: webapp-pod-wl05
+  name: webapp-pod-wl05
+  namespace: canara-wl05
+spec:
+  containers:
+  - image: kodekloud/simple-webapp-mysql
+    name: webapp-pod-wl05
+  dnsPolicy: ClusterFirst
+  restartPolicy: Always
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: webapp-svc-wl05
+  name: webapp-svc-wl05
+  namespace: canara-wl05
+spec:
+  ports:
+  - name: 8080-8080
+    port: 8080
+    protocol: TCP
+    targetPort: 8080
+    nodePort: 31020
+  selector:
+    run: webapp-pod-wl05
+  type: NodePort
+
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  namespace: canara-wl05
+  labels:
+    run: mysql-pod-wl05
+  name: mysql-wl05
+spec:
+  containers:
+  - image: mysql:5.6
+    name: mysql-pod-wl05
+    env: 
+    - name: MYSQL_ROOT_PASSWORD
+      value: password123
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: canara-wl05
+  labels:
+    app: mysql-svc-wl05
+  name: mysql-svc-wl05
+spec:
+  ports:
+  - name: 3306-3306
+    port: 3306
+    protocol: TCP
+    targetPort: 3306
+  selector:
+    run: mysql-pod-wl05
+  type: ClusterIP
+
+EOF
+
+
+
+# Manifest file for ques 6
+cat << EOF > /tmp/nginx-wl06.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    run: nginx-wl06
+  name: nginx-wl06
+spec:
+  containers:
+  - image: nginx
+    name: nginx-wl06
+    resources:
+      requests:
+        memory: 100Gi
+  dnsPolicy: ClusterFirst
+  restartPolicy: Always
+
+EOF
+
+
+
+
