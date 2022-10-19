@@ -1,0 +1,16 @@
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    run: webapp-pod-wl05
+  name: webapp-pod-wl05
+  namespace: canara-wl05
+spec:
+  containers:
+  - image: kodekloud/simple-webapp-mysql
+    name: webapp-pod-wl05
+    envFrom:
+    - secretRef:
+        name: db-secret-wl05
+        
