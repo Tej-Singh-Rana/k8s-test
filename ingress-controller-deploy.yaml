@@ -525,4 +525,4 @@ webhooks:
     resources:
     - ingresses
   sideEffects: None
-  timeoutSeconds: 1
+  timeoutSeconds: 10
