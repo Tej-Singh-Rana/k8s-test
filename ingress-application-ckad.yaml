@@ -9,21 +9,21 @@ metadata:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: webapp-wear
+  name: webapp-food
   namespace: global-space
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: webapp-wear
+      app: webapp-food
   template:
     metadata:
       labels:
-        app: webapp-wear
+        app: webapp-food
     spec:
       containers:
-      - name: simple-webapp
-        image: kodekloud/ecommerce:apparels
+      - name: webapp-food
+        image: kodekloud/ecommerce:food
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
@@ -32,47 +32,11 @@ spec:
 kind: Service
 apiVersion: v1
 metadata:
-  name: wear-service
+  name: food-service
   namespace: global-space
 spec:
   selector:
-    app: webapp-wear
-  ports:
-  - port: 8080
-    targetPort: 8080
-
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: webapp-video
-  namespace: global-space
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: webapp-video
-  template:
-    metadata:
-      labels:
-        app: webapp-video
-    spec:
-      containers:
-      - name: simple-webapp
-        image: kodekloud/ecommerce:video
-        imagePullPolicy: Always
-        ports:
-        - containerPort: 8080
-
----
-kind: Service
-apiVersion: v1
-metadata:
-  name: video-service
-  namespace: global-space
-spec:
-  selector:
-    app: webapp-video
+    app: webapp-food
   ports:
   - port: 8080
     targetPort: 8080
