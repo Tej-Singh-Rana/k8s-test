@@ -3,6 +3,7 @@ kind: Pod
 metadata:
   name: frontend-stable-cka05-arch
 spec:
+  nodeName: cluster1-controlplane
   containers:
   - name: fe-cka05-arch
     image: vish/stress
